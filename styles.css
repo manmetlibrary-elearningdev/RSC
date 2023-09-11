@@ -129,7 +129,7 @@ body {
 /* --- Button Styles --- */
 #buttonContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     margin-top: 20px;
 }
 
