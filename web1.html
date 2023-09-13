@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   
+    <title>Reference an online resource or website</title>
+
+<style>
+
+
+/* Styles for tablet and larger screens */
+@media (min-width: 768px) {
+    .cardContainer1 {
+        display: flex;
+        flex-direction: row;          
+        flex-wrap: wrap;              
+        align-items: center;          
+        justify-content: flex-start; 
+    }
+
+
+
+
+/* Custom Properties Definition */
+:root {
+    --navy: navy;
+    --bg-light: #f9f9f9;
+    --card-bg: #fffde7;
+    --card-border: #d1c8b9;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --highlight-yellow: #FFCD00;
+    --green-feedback: #a8e6cf;
+    --red-feedback: #ff8a80;
+    --icon-green: #005500;
+    --icon-red: #550000;
+    --button-navy: navy;
+    --button-hover: #4a4a8a;
+    --button-focus: #00c1d4;
+    --content-container-bg: #f9f9f9;
+    --content-container-border: #00c1d4;
+}
+
+/* Card Styles */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    max-width: 250px; /* Adjust the maximum width as needed */
+    box-sizing: border-box;
+}
+
+.card.selected {
+    background-color: var(--highlight-yellow);
+}
+
+.card.green {
+    background-color: var(--green-feedback);
+}
+
+.card.red {
+    background-color: var(--red-feedback);
+}
+
+/* Header Styles */
+h1 {
+    font-family: 'Helvetica', sans-serif;
+    color: var(--navy);
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: white;
+    color: var(--navy);
+    margin: 0;
+    padding: 20px;
+}
+
+/* Button Styles */
+#buttonContainer {
+    display: flex;
+    margin-top: 20px;
+}
+
+button {
+    flex: 1;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    background-color: var(--button-navy);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    max-width: 200px;
+}
+
+button:last-child {
+    margin-right: 0;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
+
+button:focus {
+    border: 2px solid var(--button-focus);
+}
+
+
+/* ... (rest of the CSS) ... */
+
+#cardContainer1 {
+    background-color: var(--content-container-bg);
+    border: 1px solid var(--content-container-border);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;                /* Setting this to flex will make children line up horizontally */
+    flex-direction: row;          /* This ensures children are oriented left-to-right */
+    flex-wrap: wrap;              /* This ensures that cards will wrap to the next row if they don't fit */
+    align-items: center;          /* This vertically centers the cards */
+    justify-content: flex-start;  /* This aligns cards to the start of the container */
+ 
+}
+
+
+</style>
+
+
+</head>
+
+<body>
+    <!-- Card-Sorting Activity Section -->
+    <div class="content-container">
+        <h1>How do you reference online resources (eg. databases and websites)?</h1>
+        <p>Instructions: Put the parts of the reference into the correct order. Select the cards to swap their positions.</p>
+        <div id="cardContainer1" role="list" aria-label="Cards for reference sorting">
+            </div>
+<br>
+
+            <div id="buttonContainer1">
+                <button id="resetActivity1" aria-label="Reset the activity">Reset</button>
+                <button id="checkAnswer1" aria-label="Check if the order is correct">Check Answer</button>
+            
+        </div>
+        <p id="feedback1" aria-live="polite"></p>
+    </div>
+
+
+<script>
+    // Global Variables
+    let selectedCard = null;
+    let correctOrder = [];
+    let feedbackMode = false;
+    let cardContainer;
+
+    // Utility function to strip out HTML tags (for clean comparison)
+    function stripHtml(html) {
+        const tmp = document.createElement("DIV");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
+
+    // Function to shuffle array elements
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+        return array;
+    }
+
+const cardData = {
+  "initialOrder": [
+    
+ 
+  {"id": "1", "content": "Name of resource,"},
+    {"id": "3", "content": "(accessed date)."},
+   {"id": "2", "content": "URL"},
+   
+  
+  ],
+    
+  "correctOrder": [
+    {"id": "1", "content": "Name of resource,"},
+ {"id": "2", "content": "URL"},
+    {"id": "3", "content": "(accessed date)."},
+  
+  ]
+};
+
+
+
+
+
+    function fetchCardData() {
+        try {
+            correctOrder = cardData.correctOrder.map(card => card.content);
+            console.log("Fetched correct order:");
+            const randomizedOrder = shuffleArray(cardData.initialOrder);
+            populateCards(randomizedOrder);
+        } catch (error) {
+            console.error("Error processing card data:", error);
+        }
+    }
+
+function populateCards(cardsData) {
+    cardsData.forEach(card => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.dataset.id = card.id;
+        div.innerHTML = card.content; // Set content without additional <p> tags
+        div.setAttribute('tabindex', '0');
+        div.setAttribute('role', 'listitem');
+        div.setAttribute('aria-label', `Reference part: ${card.content}`);
+        cardContainer.appendChild(div);
+    });
+}
+
+
+
+    function cardInteractionHandler(e) {
+        if (feedbackMode) return;
+        const card = e.target.closest('.card');
+        if (!card) return;
+
+        if (e.type === 'touchend') {
+            e.preventDefault();
+        }
+
+        if (!selectedCard) {
+            selectedCard = card;
+            card.setAttribute('aria-selected', 'true');
+            card.classList.add('selected');
+            console.log("Card selected:", stripHtml(card.innerHTML.trim()));
+        } else {
+            const tempContent = selectedCard.innerHTML;
+            selectedCard.innerHTML = card.innerHTML;
+            card.innerHTML = tempContent;
+
+            selectedCard.classList.remove('selected');
+            selectedCard.removeAttribute('aria-selected');
+            console.log("Cards swapped.");
+            selectedCard = null;
+        }
+    }
+
+    function clearSelectedCard() {
+        if (selectedCard) {
+            selectedCard.classList.remove('selected');
+            selectedCard.removeAttribute('aria-selected');
+            selectedCard = null;
+        }
+    }
+
+    function checkAnswer() {
+        clearSelectedCard();  // Clear any selected card
+        const cards = Array.from(document.querySelectorAll('.card'));
+        let isCorrect = true;
+
+        feedbackMode = true;
+        cardContainer.classList.add('feedback-given');
+
+        cards.forEach((card, index) => {
+            const existingIcons = card.querySelectorAll('.icon');
+            existingIcons.forEach(icon => card.removeChild(icon));
+
+            const cardContent = stripHtml(card.innerHTML.trim());
+            const correctAnswerWithoutHtml = stripHtml(correctOrder[index]);
+            
+            console.log('Card content:', cardContent);   // Debugging statement
+            console.log('Expected content:', correctAnswerWithoutHtml);   // Debugging statement
+            
+            if (cardContent !== correctAnswerWithoutHtml) {
+                card.classList.add('red');
+                const crossIcon = document.createElement('span');
+                crossIcon.className = 'icon cross';
+                crossIcon.innerHTML = '&#10007;';  // Unicode cross symbol using HTML entity
+                card.appendChild(crossIcon);
+                isCorrect = false;
+            } else {
+                card.classList.add('green');
+                const tickIcon = document.createElement('span');
+                tickIcon.className = 'icon tick';
+                tickIcon.innerHTML = '&#10004;';  // Unicode checkmark symbol using HTML entity
+                card.appendChild(tickIcon);
+            }
+        });
+
+        const feedbackEl = document.getElementById('feedback1');
+        feedbackEl.textContent = isCorrect ? "Correct! Well done." : "Incorrect. Please try again.";
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        cardContainer = document.getElementById('cardContainer1');
+        
+        if (!cardContainer) {
+            console.error("cardContainer1 element not found!");
+            return;
+        }
+
+        const resetActivityButton = document.getElementById('resetActivity1');
+        const checkAnswerButton = document.getElementById('checkAnswer1');
+
+        resetActivityButton?.addEventListener('click', function() {
+            feedbackMode = false;
+            location.reload();
+        });
+
+        checkAnswerButton?.addEventListener('click', checkAnswer);
+
+        cardContainer.addEventListener('click', cardInteractionHandler);
+        cardContainer.addEventListener('touchend', cardInteractionHandler);
+        cardContainer.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                cardInteractionHandler.call(e.target, e);
+            }
+        });
+
+        // Fetch the card data and initiate the activity
+        fetchCardData();
+    });
+
+</script>
