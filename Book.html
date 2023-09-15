@@ -1,337 +1,175 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reference a book</title>
-
-<style>
-
-
-/* Styles for tablet and larger screens */
-@media (min-width: 768px) {
-    .cardContainer1 {
-        display: flex;
-        flex-direction: row;          
-        flex-wrap: wrap;              
-        align-items: center;          
-        justify-content: flex-start; 
-    }
+    <style>
 
 
-
-
-/* Custom Properties Definition */
-:root {
-    --navy: navy;
-    --bg-light: #f9f9f9;
-    --card-bg: #fffde7;
-    --card-border: #d1c8b9;
-    --shadow-light: rgba(0, 0, 0, 0.1);
-    --highlight-yellow: #FFCD00;
-    --green-feedback: #a8e6cf;
-    --red-feedback: #ff8a80;
-    --icon-green: #005500;
-    --icon-red: #550000;
-    --button-navy: navy;
-    --button-hover: #4a4a8a;
-    --button-focus: #00c1d4;
-    --content-container-bg: #f9f9f9;
-    --content-container-border: #00c1d4;
+.carousel-slide.active {
+    z-index: 1;
 }
 
-/* Card Styles */
-.card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    max-width: 250px; /* Adjust the maximum width as needed */
-    box-sizing: border-box;
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-.card.selected {
-    background-color: var(--highlight-yellow);
-}
+        .carousel-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 40px auto;
+            overflow: hidden;
+            position: relative;
+            height: 600px;
+        }
 
-.card.green {
-    background-color: var(--green-feedback);
-}
+        .carousel-slide {
+            min-height: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
 
-.card.red {
-    background-color: var(--red-feedback);
-}
+        .carousel-slide img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
 
-/* Header Styles */
-h1 {
-    font-family: 'Helvetica', sans-serif;
-    color: var(--navy);
-    font-size: 1.5em;
-    margin-top: 0;
-}
+        .carousel-slide iframe {
+            width: 100%;
+            max-height: 500px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
 
-/* Global Styles */
-body {
-    font-family: 'Helvetica', sans-serif;
-    background-color: white;
-    color: var(--navy);
-    margin: 0;
-    padding: 20px;
-}
+        .carousel-slide.active {
+            opacity: 1;
+        }
 
-/* Button Styles */
-#buttonContainer {
-    display: flex;
-    margin-top: 20px;
-}
+        /* The Navigation Buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-button {
-    flex: 1;
-    padding: 10px 15px;
-    margin-right: 10px;
-    border: none;
-    background-color: var(--button-navy);
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    max-width: 200px;
-}
+        .button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-button:last-child {
-    margin-right: 0;
-}
+        /* Slide Indicators */
+        .indicators {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-button:hover {
-    background-color: var(--button-hover);
-}
+        .indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #999;
+            border-radius: 50%;
+            cursor: pointer;
+        }
 
-button:focus {
-    border: 2px solid var(--button-focus);
+        .indicator.active {
+            background-color: #007BFF;
+        }
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
 }
 
 
-/* ... (rest of the CSS) ... */
-
-#cardContainer1 {
-    background-color: var(--content-container-bg);
-    border: 1px solid var(--content-container-border);
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;                /* Setting this to flex will make children line up horizontally */
-    flex-direction: row;          /* This ensures children are oriented left-to-right */
-    flex-wrap: wrap;              /* This ensures that cards will wrap to the next row if they don't fit */
-    align-items: center;          /* This vertically centers the cards */
-    justify-content: flex-start;  /* This aligns cards to the start of the container */
- 
-}
-
-
-</style>
-
-
+    </style>
 </head>
-
 <body>
-    <!-- Card-Sorting Activity Section -->
-    <div class="content-container">
-        <h1>How do you reference a chapter in an edited book?</h1>
-        <p>Instructions: Put the parts of the reference into the correct order. Select the cards to swap their positions.</p>
-        <div id="cardContainer1" role="list" aria-label="Cards for reference sorting">
-            </div>
-<br>
+  <!-- Slide Indicators -->
+  
+    <div class="carousel-container">
+        <!-- First Slide with the image -->
+        <div class="carousel-slide active">
 
-            <div id="buttonContainer1">
-                <button id="resetActivity1" aria-label="Reset the activity">Reset</button>
-                <button id="checkAnswer1" aria-label="Check if the order is correct">Check Answer</button>
-            
-        </div>
-        <p id="feedback1" aria-live="polite"></p>
+ 
+    <iframe class="responsive-iframe" src="https://manmetlibrary-elearningdev.github.io/RSC/slide1.html" width="900px" height="400px" frameborder="0"></iframe>
+</div>
+
+
+ <div class="carousel-slide">
+        <iframe class="responsive-iframe" src="https://manmetlibrary-elearningdev.github.io/RSC/slide2.html" width="900px" height="400px" frameborder="0"></iframe>
+</div> 
+
+ 
+ <div class="carousel-slide">
+        <iframe class="responsive-iframe" src="https://manmetlibrary-elearningdev.github.io/RSC/slide3.html" width="900px" height="400px" frameborder="0"></iframe>
+</div> 
+
+         <div class="carousel-slide">
+        <iframe class="responsive-iframe" src="https://manmetlibrary-elearningdev.github.io/RSC/slide4.html" width="900px" height="400px" frameborder="0"></iframe>
+</div> 
+
+
+
+
+ </div>
+    </div>
+  <div class="indicators">
+        <span class="indicator active" onclick="showSlide(0)"></span>
+        <span class="indicator" onclick="showSlide(1)"></span>
+<span class="indicator" onclick="showSlide(2)"></span>
+      <span class="indicator" onclick="showSlide(3)"></span>
+
+
     </div>
 
+    <!-- The Navigation Buttons -->
+    <div class="button-container">
+        <button type="button" class="button" id="prev" onclick="showSlide(-1)">Previous</button>
+        <button type="button" class="button" id="next" onclick="showSlide(1)">Next</button>
+    </div>
 
-<script>
-    // Global Variables
-    let selectedCard = null;
-    let correctOrder = [];
-    let feedbackMode = false;
-    let cardContainer;
+  
 
-    // Utility function to strip out HTML tags (for clean comparison)
-    function stripHtml(html) {
-        const tmp = document.createElement("DIV");
-        tmp.innerHTML = html;
-        return tmp.textContent || tmp.innerText || "";
-    }
+    <script>
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentSlideIndex = 0;
 
-    // Function to shuffle array elements
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-        }
-        return array;
-    }
-
-const cardData = {
-  "initialOrder": [
-    {"id": "1", "content": "Author of chapter, in"},
-    {"id": "2", "content": "<em>Title of book,</em>"},
-    {"id": "3", "content": "Editor/s of book,"},
-    {"id": "4", "content": "Place published, Publisher,"},
-    {"id": "5", "content": "Xth edn.,"},
-    {"id": "6", "content": "Year,"},
-    {"id": "7", "content": "Vol, ch.,"},
-    {"id": "8", "content": "Page numbers of chapter."}
-  ],
-    
-  "correctOrder": [
-    {"id": "1", "content": "Author of chapter, in"},
-    {"id": "2", "content": "<em>Title of book,</em>"},
-    {"id": "3", "content": "Editor/s of book"},
-    {"id": "4", "content": "Place published, Publisher,"},
-    {"id": "5", "content": "Xth edn.,"},
-    {"id": "6", "content": "Year,"},
-    {"id": "7", "content": "Vol, ch.,"},
-    {"id": "8", "content": "Page numbers of chapter."}
-  ]
-};
-
-
-
-
-
-
-    function fetchCardData() {
-        try {
-            correctOrder = cardData.correctOrder.map(card => card.content);
-            console.log("Fetched correct order:");
-            const randomizedOrder = shuffleArray(cardData.initialOrder);
-            populateCards(randomizedOrder);
-        } catch (error) {
-            console.error("Error processing card data:", error);
-        }
-    }
-
-function populateCards(cardsData) {
-    cardsData.forEach(card => {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.dataset.id = card.id;
-        div.innerHTML = card.content; // Set content without additional <p> tags
-        div.setAttribute('tabindex', '0');
-        div.setAttribute('role', 'listitem');
-        div.setAttribute('aria-label', `Reference part: ${card.content}`);
-        cardContainer.appendChild(div);
-    });
-}
-
-
-
-    function cardInteractionHandler(e) {
-        if (feedbackMode) return;
-        const card = e.target.closest('.card');
-        if (!card) return;
-
-        if (e.type === 'touchend') {
-            e.preventDefault();
+        function showSlide(offset) {
+            slides[currentSlideIndex].classList.remove('active');
+            indicators[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (currentSlideIndex + offset + slides.length) % slides.length;
+            slides[currentSlideIndex].classList.add('active');
+            indicators[currentSlideIndex].classList.add('active');
         }
 
-        if (!selectedCard) {
-            selectedCard = card;
-            card.setAttribute('aria-selected', 'true');
-            card.classList.add('selected');
-            console.log("Card selected:", stripHtml(card.innerHTML.trim()));
-        } else {
-            const tempContent = selectedCard.innerHTML;
-            selectedCard.innerHTML = card.innerHTML;
-            card.innerHTML = tempContent;
-
-            selectedCard.classList.remove('selected');
-            selectedCard.removeAttribute('aria-selected');
-            console.log("Cards swapped.");
-            selectedCard = null;
-        }
-    }
-
-    function clearSelectedCard() {
-        if (selectedCard) {
-            selectedCard.classList.remove('selected');
-            selectedCard.removeAttribute('aria-selected');
-            selectedCard = null;
-        }
-    }
-
-    function checkAnswer() {
-        clearSelectedCard();  // Clear any selected card
-        const cards = Array.from(document.querySelectorAll('.card'));
-        let isCorrect = true;
-
-        feedbackMode = true;
-        cardContainer.classList.add('feedback-given');
-
-        cards.forEach((card, index) => {
-            const existingIcons = card.querySelectorAll('.icon');
-            existingIcons.forEach(icon => card.removeChild(icon));
-
-            const cardContent = stripHtml(card.innerHTML.trim());
-            const correctAnswerWithoutHtml = stripHtml(correctOrder[index]);
-            
-            console.log('Card content:', cardContent);   // Debugging statement
-            console.log('Expected content:', correctAnswerWithoutHtml);   // Debugging statement
-            
-            if (cardContent !== correctAnswerWithoutHtml) {
-                card.classList.add('red');
-                const crossIcon = document.createElement('span');
-                crossIcon.className = 'icon cross';
-                crossIcon.innerHTML = '&#10007;';  // Unicode cross symbol using HTML entity
-                card.appendChild(crossIcon);
-                isCorrect = false;
-            } else {
-                card.classList.add('green');
-                const tickIcon = document.createElement('span');
-                tickIcon.className = 'icon tick';
-                tickIcon.innerHTML = '&#10004;';  // Unicode checkmark symbol using HTML entity
-                card.appendChild(tickIcon);
-            }
-        });
-
-        const feedbackEl = document.getElementById('feedback1');
-        feedbackEl.textContent = isCorrect ? "Correct! Well done." : "Incorrect. Please try again.";
-    }
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-        cardContainer = document.getElementById('cardContainer1');
-        
-        if (!cardContainer) {
-            console.error("cardContainer1 element not found!");
-            return;
-        }
-
-        const resetActivityButton = document.getElementById('resetActivity1');
-        const checkAnswerButton = document.getElementById('checkAnswer1');
-
-        resetActivityButton?.addEventListener('click', function() {
-            feedbackMode = false;
-            location.reload();
-        });
-
-        checkAnswerButton?.addEventListener('click', checkAnswer);
-
-        cardContainer.addEventListener('click', cardInteractionHandler);
-        cardContainer.addEventListener('touchend', cardInteractionHandler);
-        cardContainer.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.keyCode === 13) {
-                cardInteractionHandler.call(e.target, e);
-            }
-        });
-
-        // Fetch the card data and initiate the activity
-        fetchCardData();
-    });
-
-</script>
+        // Initially show the first slide and highlight the first indicator
+        showSlide(0);
+    </script>
+</body>
+</html>
