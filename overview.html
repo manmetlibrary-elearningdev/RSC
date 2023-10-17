@@ -5,15 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Highlight References</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
         .highlight {
             background-color: yellow;
             font-weight: bold;
+        }
+        .reference {
+            vertical-align: super;
+            font-size: smaller;
+            position: relative;
+            top: -0.5em;
+            cursor: pointer;
+            user-select: text;
+        }
+        #paragraph {
+            margin-bottom: 20px;
+        }
+        #referenceList {
+            list-style-type: none;
+            padding: 0;
+        }
+        #referenceList li {
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
     <p id="paragraph">
-        Polymer concrete often has better tensile strength, compressive strength, and flexural strength than traditional concrete.<span class="reference" data-ref="1">1</span> It also cures faster, making it useful when a rapid turnaround is necessary.<span class="reference" data-ref="2">2</span> However, it is associated with high costs.<span class="reference" data-ref="1">1</span>
+        Polymer concrete often has better tensile strength, compressive strength, and flexural strength than traditional concrete.<sup class="reference" data-ref="1" tabindex="0">1</sup> It also cures faster, making it useful when a rapid turnaround is necessary.<sup class="reference" data-ref="2" tabindex="0">2</sup> However, it is associated with high costs.<sup class="reference" data-ref="1" tabindex="0">1</sup>
     </p>
     <h2>Reference List</h2>
     <ul id="referenceList">
@@ -21,6 +42,40 @@
         <li data-ref="2">S. Lee, Chem. Eng. News, 2018, 86, 15.</li>
     </ul>
 
-    <script src="script.js"></script>
+    <script>
+        // Get references to elements
+        const paragraph = document.getElementById('paragraph');
+        const references = paragraph.querySelectorAll('.reference');
+        const referenceList = document.getElementById('referenceList');
+        const referenceItems = referenceList.querySelectorAll('li');
+
+        // Function to highlight the selected reference
+        function highlightReference(refNumber) {
+            references.forEach((reference) => {
+                reference.classList.remove('highlight');
+                if (reference.getAttribute('data-ref') === refNumber) {
+                    reference.classList.add('highlight');
+                }
+            });
+        }
+
+        // Event listener for mouse click
+        paragraph.addEventListener('click', (e) => {
+            if (e.target.classList.contains('reference')) {
+                const refNumber = e.target.getAttribute('data-ref');
+                highlightReference(refNumber);
+            }
+        });
+
+        // Event listener for keyboard navigation
+        references.forEach((reference) => {
+            reference.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === 'Space') {
+                    const refNumber = e.target.getAttribute('data-ref');
+                    highlightReference(refNumber);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
