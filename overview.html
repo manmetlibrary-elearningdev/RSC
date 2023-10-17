@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlight References</title>
+    <style>
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <p id="paragraph">
+        Polymer concrete often has better tensile strength, compressive strength, and flexural strength than traditional concrete.<span class="reference" data-ref="1">1</span> It also cures faster, making it useful when a rapid turnaround is necessary.<span class="reference" data-ref="2">2</span> However, it is associated with high costs.<span class="reference" data-ref="1">1</span>
+    </p>
+    <h2>Reference List</h2>
+    <ul id="referenceList">
+        <li data-ref="1">H. Taylor, Cement chemistry, Oxford University Press, Oxford, 2nd edn., 2019.</li>
+        <li data-ref="2">S. Lee, Chem. Eng. News, 2018, 86, 15.</li>
+    </ul>
+
+    <script src="script.js"></script>
+</body>
+</html>
