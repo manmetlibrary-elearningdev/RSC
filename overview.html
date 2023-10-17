@@ -64,19 +64,20 @@
                 Polymer concrete often has better tensile strength, compressive strength, and flexural strength than traditional concrete.<sup class="reference" data-ref="1" tabindex="0" aria-label="Reference 1">1</sup> It also cures faster, making it useful when a rapid turnaround is necessary.<sup class="reference" data-ref="2" tabindex="0" aria-label="Reference 2">2</sup> However, it is associated with high costs.<sup class="reference" data-ref="1" tabindex="0" aria-label="Reference 1">1</sup>
             </p>
         </div>
-        <div class="box" id="referenceList">
-            <h2>Reference List</h2>
-            
-                <p> data-ref="1">1. H. Taylor, <em>Cement chemistry</em>, Oxford University Press, Oxford, 2nd edn., 2019.</p>
-                <p> data-ref="2">2. S. Lee, <em>Chem. Eng. News</em>, 2018, <b>86</b>, 15.</p>
-            
-        </div>
+       
+   <h2>Reference List</h2>
+<div id="referenceList">
+    <p data-ref="1">1. H. Taylor, <em>Cement chemistry</em>, Oxford University Press, Oxford, 2nd edn., 2019.</p>
+    <p data-ref="2">2. S. Lee, <em>Chem. Eng. News</em>, 2018, <b>86</b>, 15.</p>
+
+
     </div>
     
     <script>
         // Get references to elements
         const references = document.querySelectorAll('.reference');
-        const referenceItems = document.querySelectorAll('#referenceList li');
+      const referenceItems = document.querySelectorAll('#referenceList p');
+
 
         // Function to highlight the selected reference
         function highlightReference(refNumber) {
