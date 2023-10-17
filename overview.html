@@ -7,6 +7,27 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .flex-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .instructions {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            width: 80%;
+            max-width: 600px;
+            background-color: #f9f9f9;
         }
         .highlight {
             background-color: yellow;
@@ -33,34 +54,46 @@
     </style>
 </head>
 <body>
-    <p id="paragraph">
-        Polymer concrete often has better tensile strength, compressive strength, and flexural strength than traditional concrete.<sup class="reference" data-ref="1" tabindex="0">1</sup> It also cures faster, making it useful when a rapid turnaround is necessary.<sup class="reference" data-ref="2" tabindex="0">2</sup> However, it is associated with high costs.<sup class="reference" data-ref="1" tabindex="0">1</sup>
-    </p>
-    <h2>Reference List</h2>
-    <ul id="referenceList">
-        <li data-ref="1">1. H. Taylor, <em>Cement chemistry,</em> Oxford University Press, Oxford, 2nd edn., 2019.</li>
-        <li data-ref="2">2. S. Lee, <em>Chem. Eng. News,</em> 2018, <b>86</b>, 15.</li>
-    </ul>
-
+    <div class="flex-container">
+        <div class="instructions">
+            <p>Select the superscript numbers in the text to see how they correspond to the reference list.</p>
+        </div>
+        <div class="box" id="paragraph">
+            <p>
+                Polymer concrete often has better tensile strength, compressive strength, and flexural strength than traditional concrete.<sup class="reference" data-ref="1" tabindex="0" aria-label="Reference 1">1</sup> It also cures faster, making it useful when a rapid turnaround is necessary.<sup class="reference" data-ref="2" tabindex="0" aria-label="Reference 2">2</sup> However, it is associated with high costs.<sup class="reference" data-ref="1" tabindex="0" aria-label="Reference 1">1</sup>
+            </p>
+        </div>
+        <div class="box" id="referenceList">
+            <h2>Reference List</h2>
+            <ul>
+                <li data-ref="1">H. Taylor, <em>Cement chemistry</em>, Oxford University Press, Oxford, 2nd edn., 2019.</li>
+                <li data-ref="2">S. Lee, <em>Chem. Eng. News</em>, 2018, <b>86</b>, 15.</li>
+            </ul>
+        </div>
+    </div>
+    
     <script>
         // Get references to elements
-        const paragraph = document.getElementById('paragraph');
-        const references = paragraph.querySelectorAll('.reference');
-        const referenceList = document.getElementById('referenceList');
-        const referenceItems = referenceList.querySelectorAll('li');
+        const references = document.querySelectorAll('.reference');
+        const referenceItems = document.querySelectorAll('#referenceList li');
 
         // Function to highlight the selected reference
         function highlightReference(refNumber) {
-            references.forEach((reference) => {
-                reference.classList.remove('highlight');
-                if (reference.getAttribute('data-ref') === refNumber) {
-                    reference.classList.add('highlight');
+            // Remove highlight from all reference list items
+            referenceItems.forEach((referenceItem) => {
+                referenceItem.classList.remove('highlight');
+            });
+
+            // Highlight the selected reference list item
+            referenceItems.forEach((referenceItem) => {
+                if (referenceItem.getAttribute('data-ref') === refNumber) {
+                    referenceItem.classList.add('highlight');
                 }
             });
         }
 
         // Event listener for mouse click
-        paragraph.addEventListener('click', (e) => {
+        document.addEventListener('click', (e) => {
             if (e.target.classList.contains('reference')) {
                 const refNumber = e.target.getAttribute('data-ref');
                 highlightReference(refNumber);
