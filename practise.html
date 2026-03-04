@@ -45,6 +45,23 @@
         .step-section.active { display: block; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        .interaction-guide {
+            background: #edf2f7;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            color: var(--rsc-navy);
+            border: 1px solid #cbd5e0;
+        }
+        .interaction-guide h3 { 
+            margin-top: 0; 
+            margin-bottom: 10px; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+        }
+        .instruction-text { font-weight: 400; }
+
         .instruction-card {
             background: #f8fafc; border-left: 4px solid var(--highlight);
             padding: 15px 20px; margin-bottom: 30px; border-radius: 0 8px 8px 0;
@@ -54,14 +71,16 @@
 
         .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--rsc-navy); }
         
-        /* Expanded Target Drop Zone */
         .drop-zone {
             width: 100%;
-            min-height: 140px; /* Increased height for wrapping */
+            min-height: 140px;
             border: 2px solid #e2e8f0; border-radius: 12px;
             padding: 20px; display: flex; flex-wrap: wrap; gap: 10px;
             background: #ffffff; transition: all 0.2s; align-content: flex-start;
+            outline: none;
         }
+        .drop-zone:focus { border-color: var(--highlight); background: #f0f9ff; }
+
         .target { 
             background-color: #fdfdfd; 
             border: 2px solid var(--highlight); 
@@ -78,7 +97,10 @@
             display: flex; align-items: center; gap: 8px;
             transition: all 0.2s; user-select: none;
             font-size: 0.95rem;
+            outline: none;
         }
+        .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(0, 175, 255, 0.3); }
+
         .item.dragging { opacity: 0.4; transform: scale(0.95); }
         .item.selected { border-color: var(--highlight); box-shadow: 0 0 0 3px var(--highlight); }
 
@@ -112,22 +134,26 @@
     <div class="progress-container"><div id="progress-fill"></div></div>
 
     <div id="step-1" class="step-section active">
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: drag and drop the components using the mouse or Tab key. On mobile: tap to pick/drop a component.</span>
+        </div>
         <h2>Book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book</span><br>
             Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
         </div>
-        <div class="zone-title">Your Reference (Drag pieces here):</div>
-        <div class="drop-zone target" id="target-1" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="drop-zone target" id="target-1" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
         <div id="status-1" class="status-msg"></div>
         
         <div class="zone-title">Components:</div>
-        <div class="drop-zone source source-zone" id="source-1" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
-            <div class="item" id="b1" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>S. T. Beckett,</div>
-            <div class="item" id="b2" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Science of Chocolate</em>,</div>
-            <div class="item" id="b3" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Royal Society of Chemistry,</div>
-            <div class="item" id="b4" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Cambridge,</div>
-            <div class="item" id="b5" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2000.</div>
+        <div class="drop-zone source source-zone" id="source-1" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="item" id="b1" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>S. T. Beckett,</div>
+            <div class="item" id="b2" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Science of Chocolate</em>,</div>
+            <div class="item" id="b3" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Royal Society of Chemistry,</div>
+            <div class="item" id="b4" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Cambridge,</div>
+            <div class="item" id="b5" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2000.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(1, 5)">Check Answer</button>
@@ -136,23 +162,27 @@
     </div>
 
     <div id="step-2" class="step-section">
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: drag and drop the components using the mouse or Tab key. On mobile: tap to pick/drop a component.</span>
+        </div>
         <h2>Chapter in an edited book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for chapter in an edited book</span><br>
             Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
         </div>
-        <div class="zone-title">Your Reference:</div>
-        <div class="drop-zone target" id="target-2" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="drop-zone target" id="target-2" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
         <div id="status-2" class="status-msg"></div>
         <div class="zone-title">Components:</div>
-        <div class="drop-zone source source-zone" id="source-2" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
-            <div class="item" id="c1" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>J. Barker,</div>
-            <div class="item" id="c2" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>in <em>Catalyst Deactivation</em>,</div>
-            <div class="item" id="c3" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>ed. B. Delmon and C. Froment,</div>
-            <div class="item" id="c4" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Elsevier,</div>
-            <div class="item" id="c5" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Amsterdam, 2nd edn,</div>
-            <div class="item" id="c6" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="6"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>1987,</div>
-            <div class="item" id="c7" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="7"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>vol. 1, ch. 4, pp. 253–255.</div>
+        <div class="drop-zone source source-zone" id="source-2" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="item" id="c1" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>J. Barker,</div>
+            <div class="item" id="c2" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>in <em>Catalyst Deactivation</em>,</div>
+            <div class="item" id="c3" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>ed. B. Delmon and C. Froment,</div>
+            <div class="item" id="c4" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Elsevier,</div>
+            <div class="item" id="c5" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Amsterdam, 2nd edn,</div>
+            <div class="item" id="c6" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="6"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>1987,</div>
+            <div class="item" id="c7" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="7"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>vol. 1, ch. 4, pp. 253–255.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(2, 7)">Check Answer</button>
@@ -161,20 +191,25 @@
     </div>
 
     <div id="step-3" class="step-section">
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: drag and drop the components using the mouse or Tab key. On mobile: tap to pick/drop a component.</span>
+        </div>
         <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
-            Initial. Surname, Initial. Surname and Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
+            Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
         </div>
-        <div class="drop-zone target" id="target-3" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="drop-zone target" id="target-3" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
         <div id="status-3" class="status-msg"></div>
         <div class="zone-title">Components:</div>
-        <div class="drop-zone source source-zone" id="source-3" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
-            <div class="item" id="j1" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
-            <div class="item" id="j2" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Chem. Commun.</em>,</div>
-            <div class="item" id="j3" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2012,</div>
-            <div class="item" id="j4" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><strong>48</strong>,</div>
-            <div class="item" id="j5" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>1851–1853.</div>
+        <div class="drop-zone source source-zone" id="source-3" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="item" id="j1" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
+            <div class="item" id="j2" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Chem. Commun.</em>,</div>
+            <div class="item" id="j3" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2012,</div>
+            <div class="item" id="j4" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><strong>48</strong>,</div>
+            <div class="item" id="j5" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>1851–1853.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(3, 5)">Check Answer</button>
@@ -183,19 +218,24 @@
     </div>
 
     <div id="step-4" class="step-section">
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: drag and drop the components using the mouse or Tab key. On mobile: tap to pick/drop a component.</span>
+        </div>
         <h2>Online journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online journal article</span><br>
-            Initial. Surname, Initial. Surname and Initial. Surname, <em>Journal Title</em>, year, DOI.
+            Initial. Surname, <em>Journal Title</em>, year, DOI.
         </div>
-        <div class="drop-zone target" id="target-4" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="drop-zone target" id="target-4" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
         <div id="status-4" class="status-msg"></div>
         <div class="zone-title">Components:</div>
-        <div class="drop-zone source source-zone" id="source-4" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
-            <div class="item" id="oj1" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
-            <div class="item" id="oj2" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Chem. Commun.</em>,</div>
-            <div class="item" id="oj3" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2012,</div>
-            <div class="item" id="oj4" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>DOI: 10.1039/C2CC17634C.</div>
+        <div class="drop-zone source source-zone" id="source-4" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="item" id="oj1" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
+            <div class="item" id="oj2" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Chem. Commun.</em>,</div>
+            <div class="item" id="oj3" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2012,</div>
+            <div class="item" id="oj4" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>DOI: 10.1039/C2CC17634C.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(4, 4)">Check Answer</button>
@@ -204,18 +244,23 @@
     </div>
 
     <div id="step-5" class="step-section">
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: drag and drop the components using the mouse or Tab key. On mobile: tap to pick/drop a component.</span>
+        </div>
         <h2>Online resource / website</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online resource / website</span><br>
             Name of resource, URL, (accessed date).
         </div>
-        <div class="drop-zone target" id="target-5" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="drop-zone target" id="target-5" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
         <div id="status-5" class="status-msg"></div>
         <div class="zone-title">Components:</div>
-        <div class="drop-zone source source-zone" id="source-5" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
-            <div class="item" id="or1" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>The Merck Index Online,</div>
-            <div class="item" id="or2" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>http://www.rsc.org/Merck-Index/monograph/mono1500000841,</div>
-            <div class="item" id="or3" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(accessed October 2023).</div>
+        <div class="drop-zone source source-zone" id="source-5" tabindex="0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="item" id="or1" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>The Merck Index Online,</div>
+            <div class="item" id="or2" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>http://www.rsc.org/Merck-Index/monograph/mono1500000841,</div>
+            <div class="item" id="or3" tabindex="0" draggable="true" ondragstart="drag(event)" onclick="itemClick(this)" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(accessed October 2023).</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(5, 3)">Check Answer</button>
@@ -259,6 +304,23 @@
         else { clickedItem = item; item.classList.add('selected'); }
     }
 
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const activeEl = document.activeElement;
+            if (activeEl.classList.contains('item')) {
+                e.preventDefault();
+                itemClick(activeEl);
+            } 
+            else if (activeEl.classList.contains('drop-zone') && clickedItem) {
+                e.preventDefault();
+                activeEl.appendChild(clickedItem);
+                clickedItem.classList.remove('selected', 'correct', 'incorrect');
+                clickedItem = null;
+                activeEl.focus();
+            }
+        }
+    });
+
     document.querySelectorAll('.drop-zone').forEach(zone => {
         zone.addEventListener('click', function(e) {
             if (clickedItem && e.target === this) {
@@ -280,6 +342,7 @@
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
                 item.draggable = false;
+                item.removeAttribute('tabindex'); 
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
