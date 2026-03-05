@@ -266,8 +266,7 @@
         <div class="button-row">
             <button class="btn-check" onclick="validate(5, 3)">Check Answer</button>
             <button class="btn-reset" onclick="resetStep(5)">Reset Task</button>
-            <button class="btn-next" id="next-5" onclick="location.reload()">Finish Challenge</button>
-        </div>
+            </div>
     </div>
 </div>
 
@@ -284,7 +283,6 @@
         document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone));
     };
 
-    // Toggle items between lists
     document.addEventListener('click', function(e) {
         const item = e.target.closest('.item');
         if (!item || item.classList.contains('correct')) return;
@@ -302,7 +300,6 @@
         item.classList.remove('incorrect');
     });
 
-    // Keyboard support
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
             if (e.target.classList.contains('item')) {
@@ -318,7 +315,6 @@
         const statusMsg = document.getElementById(`status-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
         
-        // Move all items back to source
         const items = Array.from(targetZone.children);
         items.forEach(item => {
             item.classList.remove('correct', 'incorrect');
@@ -326,7 +322,6 @@
             sourceZone.appendChild(item);
         });
 
-        // Also clean items still in source (just in case)
         Array.from(sourceZone.children).forEach(item => {
             item.classList.remove('correct', 'incorrect');
             item.tabIndex = 0;
@@ -335,12 +330,13 @@
         shuffleZone(sourceZone);
         statusMsg.innerHTML = "";
         statusMsg.className = "status-msg";
-        nextBtn.classList.remove('visible');
+        if (nextBtn) nextBtn.classList.remove('visible');
     }
 
     function validate(stepId, totalItems) {
         const targetZone = document.getElementById(`target-${stepId}`);
         const statusMsg = document.getElementById(`status-${stepId}`);
+        const nextBtn = document.getElementById(`next-${stepId}`);
         const items = Array.from(targetZone.children);
         let correctCount = 0;
 
@@ -365,7 +361,7 @@
         } else if (correctCount === totalItems) {
             statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted and placed.";
             statusMsg.className = "status-msg success";
-            document.getElementById(`next-${stepId}`).classList.add('visible');
+            if (nextBtn) nextBtn.classList.add('visible');
         } else {
             statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} parts correct. ✗ Try reordering the items.`;
             statusMsg.className = "status-msg error";
@@ -381,5 +377,3 @@
 </script>
 </body>
 </html>
-
-
