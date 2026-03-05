@@ -58,11 +58,22 @@
 
         h1 { color: var(--rsc-navy); text-align: center; border-bottom: 2px solid var(--highlight); padding-bottom: 15px; }
 
+        /* Dashboard Styles */
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+        .menu-item { 
+            padding: 20px; background: var(--zone-bg); border: 2px solid var(--border); 
+            border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; 
+            align-items: center; transition: all 0.2s; font-weight: 600; color: var(--rsc-navy);
+        }
+        .menu-item:hover { border-color: var(--highlight); transform: translateX(5px); }
+        .menu-item .badge { font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; background: var(--border); color: var(--text-main); }
+        .menu-item.done .badge { background: var(--success); color: white; }
+
         .progress-container {
             width: 100%; height: 8px; background: var(--border);
             border-radius: 10px; margin: 20px 0 40px; overflow: hidden;
         }
-        #progress-fill { height: 100%; width: 20%; background: var(--highlight); transition: width 0.4s ease; }
+        #progress-fill { height: 100%; width: 0%; background: var(--highlight); transition: width 0.4s ease; }
 
         .step-section { display: none; }
         .step-section.active { display: block; animation: fadeIn 0.3s; }
@@ -82,6 +93,7 @@
         }
 
         .format-label { font-size: 0.85rem; text-transform: uppercase; color: var(--rsc-navy); font-weight: bold; }
+        .summary-example { font-family: serif; font-size: 1.05rem; margin-top: 8px; padding-left: 10px; border-left: 2px solid var(--border); color: var(--text-main); }
 
         .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--rsc-navy); }
         
@@ -122,6 +134,7 @@
         .btn-reset { background: var(--border); color: var(--text-main); flex-grow: 1; }
         .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
         .btn-next.visible { display: inline-block; }
+        .btn-menu { background: var(--instruction-bg); color: var(--rsc-navy); width: 100%; margin-top: 10px; border: 1px solid var(--border); }
 
         @media (max-width: 600px) {
             .container { padding: 20px; }
@@ -136,17 +149,31 @@
     <h1>RSC Referencing</h1>
     <div class="progress-container"><div id="progress-fill"></div></div>
 
-    <div id="step-1" class="step-section active">
+    <div id="step-0" class="step-section active">
         <div class="interaction-guide">
-            <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <h3>Choose type of reference</h3>
+            <span class="instruction-text">Select a category below to practice its formatting. Complete all tasks to view the full summary.</span>
         </div>
+        <div class="menu-grid">
+            <div class="menu-item" id="menu-1" onclick="moveStep(1)">1. Book <span class="badge" id="badge-1">Not Started</span></div>
+            <div class="menu-item" id="menu-2" onclick="moveStep(2)">2. Chapter in an edited book <span class="badge" id="badge-2">Not Started</span></div>
+            <div class="menu-item" id="menu-3" onclick="moveStep(3)">3. Journal article <span class="badge" id="badge-3">Not Started</span></div>
+            <div class="menu-item" id="menu-4" onclick="moveStep(4)">4. Online journal article <span class="badge" id="badge-4">Not Started</span></div>
+            <div class="menu-item" id="menu-5" onclick="moveStep(5)">5. Online resource / website <span class="badge" id="badge-5">Not Started</span></div>
+        </div>
+        <div class="button-row">
+            <button class="btn-check" style="width: 100%;" onclick="moveStep(6)">Jump to Summary Review →</button>
+        </div>
+    </div>
+
+    <div id="step-1" class="step-section">
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2>Book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book</span><br>
             Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-1"></div>
         <div id="status-1" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -165,27 +192,24 @@
     </div>
 
     <div id="step-2" class="step-section">
-        <div class="interaction-guide">
-            <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
-        </div>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2>Chapter in an edited book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for chapter in an edited book</span><br>
             Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-2"></div>
         <div id="status-2" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-2">
-            <div class="item" data-order="1">J. Barker,</div>
-            <div class="item" data-order="2">in <em>Catalyst Deactivation</em>,</div>
-            <div class="item" data-order="3">ed. B. Delmon and C. Froment,</div>
-            <div class="item" data-order="4">Elsevier,</div>
-            <div class="item" data-order="5">Amsterdam, 2nd edn,</div>
-            <div class="item" data-order="6">1987,</div>
-            <div class="item" data-order="7">vol. 1, ch. 4, pp. 253–255.</div>
+            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>J. Barker,</div>
+            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>in <em>Catalyst Deactivation</em>,</div>
+            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>ed. B. Delmon and C. Froment,</div>
+            <div class="item" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Elsevier,</div>
+            <div class="item" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Amsterdam, 2nd edn,</div>
+            <div class="item" data-order="6"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>1987,</div>
+            <div class="item" data-order="7"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>vol. 1, ch. 4, pp. 253–255.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(2, 7)">Check Answer</button>
@@ -195,25 +219,22 @@
     </div>
 
     <div id="step-3" class="step-section">
-        <div class="interaction-guide">
-            <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
-        </div>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
             Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-3"></div>
         <div id="status-3" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-3">
-            <div class="item" data-order="1">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
-            <div class="item" data-order="2"><em>Chem. Commun.</em>,</div>
-            <div class="item" data-order="3">2012,</div>
-            <div class="item" data-order="4"><strong>48</strong>,</div>
-            <div class="item" data-order="5">1851–1853.</div>
+            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
+            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Chem. Commun.</em>,</div>
+            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2012,</div>
+            <div class="item" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><strong>48</strong>,</div>
+            <div class="item" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>1851–1853.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(3, 5)">Check Answer</button>
@@ -223,24 +244,21 @@
     </div>
 
     <div id="step-4" class="step-section">
-        <div class="interaction-guide">
-            <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. <br> Controls: Click or tap the components to move them, or use the Tab/Enter keys.</span>
-        </div>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2>Online journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online journal article</span><br>
             Initial. Surname, <em>Journal Title</em>, year, DOI.
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-4"></div>
         <div id="status-4" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-4">
-            <div class="item" data-order="1">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
-            <div class="item" data-order="2"><em>Chem. Commun.</em>,</div>
-            <div class="item" data-order="3">2012,</div>
-            <div class="item" data-order="4">DOI: 10.1039/C2CC17634C.</div>
+            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
+            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Chem. Commun.</em>,</div>
+            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2012,</div>
+            <div class="item" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>DOI: 10.1039/C2CC17634C.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(4, 4)">Check Answer</button>
@@ -250,32 +268,75 @@
     </div>
 
     <div id="step-5" class="step-section">
-        <div class="interaction-guide">
-            <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
-        </div>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2>Online resource / website</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online resource / website</span><br>
             Name of resource, URL, (accessed date).
         </div>
-        <div class="zone-title">Reference (put the components of the reference here):</div>
+        <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-5"></div>
         <div id="status-5" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-5">
-            <div class="item" data-order="1">The Merck Index Online,</div>
-            <div class="item" data-order="2">http://www.rsc.org/Merck-Index/monograph/mono1500000841,</div>
-            <div class="item" data-order="3">(accessed October 2023).</div>
+            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>The Merck Index Online,</div>
+            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>http://www.rsc.org/Merck-Index/monograph/mono1500000841,</div>
+            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(accessed October 2023).</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(5, 3)">Check Answer</button>
             <button class="btn-reset" onclick="resetStep(5)">Reset Task</button>
+            <button class="btn-next" id="next-5" onclick="moveStep(6)">Finish & Review Summary →</button>
+        </div>
+    </div>
+
+    <div id="step-6" class="step-section">
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <h2>Referencing Summary</h2>
+        <div class="interaction-guide">
+            <h3>Review of Formats</h3>
+            <span class="instruction-text">Here are the correct RSC formats and examples for all reference types in this activity.</span>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Book</span><br>
+            Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
+            <div class="summary-example">S. T. Beckett, <em>Science of Chocolate</em>, Royal Society of Chemistry, Cambridge, 2000.</div>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Chapter in an edited book</span><br>
+            Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
+            <div class="summary-example">J. Barker, in <em>Catalyst Deactivation</em>, ed. B. Delmon and C. Froment, Elsevier, Amsterdam, 2nd edn, 1987, vol. 1, ch. 4, pp. 253–255.</div>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Journal article</span><br>
+            Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
+            <div class="summary-example">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, <strong>48</strong>, 1851–1853.</div>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Online journal article</span><br>
+            Initial. Surname, <em>Journal Title</em>, year, DOI.
+            <div class="summary-example">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, DOI: 10.1039/C2CC17634C.</div>
+        </div>
+
+        <div class="instruction-card">
+            <span class="format-label">Online resource / website</span><br>
+            Name of resource, URL, (accessed date).
+            <div class="summary-example">The Merck Index Online, http://www.rsc.org/Merck-Index/monograph/mono1500000841, (accessed October 2023).</div>
+        </div>
+
+        <div class="button-row">
+            <button class="btn-check" style="width: 100%;" onclick="restartActivity()">Restart All Tasks</button>
         </div>
     </div>
 </div>
 
 <script>
+    let completedSteps = new Set();
+
     function shuffleZone(zone) {
         const items = Array.from(zone.children);
         for (let i = items.length - 1; i > 0; i--) {
@@ -289,9 +350,12 @@
     document.addEventListener('click', function(e) {
         const item = e.target.closest('.item');
         if (!item || item.classList.contains('correct')) return;
-        const stepId = item.closest('.step-section').id.split('-')[1];
+        const stepSection = item.closest('.step-section');
+        if (!stepSection) return;
+        const stepId = stepSection.id.split('-')[1];
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
+        if (!targetZone || !sourceZone) return;
         if (item.parentNode === sourceZone) targetZone.appendChild(item);
         else sourceZone.appendChild(item);
         item.classList.remove('incorrect');
@@ -322,6 +386,10 @@
         statusMsg.innerHTML = "";
         statusMsg.className = "status-msg";
         if (nextBtn) nextBtn.classList.remove('visible');
+        
+        // Remove completion if they reset
+        completedSteps.delete(stepId);
+        updateDashboard(stepId, false);
     }
 
     function validate(stepId, totalItems) {
@@ -353,17 +421,44 @@
             statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted and placed.";
             statusMsg.className = "status-msg success";
             if (nextBtn) nextBtn.classList.add('visible');
+            
+            // Mark as completed
+            completedSteps.add(stepId);
+            updateDashboard(stepId, true);
         } else {
             statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} parts correct. ✗ Try reordering the items.`;
             statusMsg.className = "status-msg error";
         }
     }
 
+    function updateDashboard(id, isDone) {
+        const menuItem = document.getElementById(`menu-${id}`);
+        const badge = document.getElementById(`badge-${id}`);
+        if(isDone) {
+            menuItem.classList.add('done');
+            badge.innerHTML = "Completed ✅";
+        } else {
+            menuItem.classList.remove('done');
+            badge.innerHTML = "Not Started";
+        }
+        
+        const progress = (completedSteps.size / 5) * 100;
+        document.getElementById('progress-fill').style.width = progress + '%';
+    }
+
     function moveStep(nextId) {
         document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
         document.getElementById(`step-${nextId}`).classList.add('active');
-        document.getElementById('progress-fill').style.width = (nextId * 20) + '%';
         window.scrollTo(0,0);
+    }
+
+    function restartActivity() {
+        for (let i = 1; i <= 5; i++) {
+            resetStep(i);
+        }
+        completedSteps.clear();
+        document.getElementById('progress-fill').style.width = '0%';
+        moveStep(0);
     }
 </script>
 </body>
