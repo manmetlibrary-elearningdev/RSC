@@ -81,21 +81,7 @@
             padding: 15px 20px; margin-bottom: 30px; border-radius: 0 8px 8px 0;
         }
 
-        .summary-item {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        .summary-item:last-child { border-bottom: none; }
-
         .format-label { font-size: 0.85rem; text-transform: uppercase; color: var(--rsc-navy); font-weight: bold; }
-        .example-box { 
-            margin-top: 8px; 
-            font-family: serif; 
-            padding: 10px; 
-            background: var(--instruction-bg); 
-            border-radius: 4px; 
-        }
 
         .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--rsc-navy); }
         
@@ -137,6 +123,10 @@
         .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
         .btn-next.visible { display: inline-block; }
 
+        /* Summary styles */
+        .summary-block { margin-bottom: 25px; }
+        .summary-example { font-family: serif; font-size: 1.05rem; margin-top: 8px; padding-left: 10px; border-left: 2px solid var(--border); color: var(--text-main); }
+
         @media (max-width: 600px) {
             .container { padding: 20px; }
             .item { font-size: 0.85rem; padding: 8px 12px; }
@@ -160,7 +150,7 @@
             <span class="format-label">Format for book</span><br>
             Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-1"></div>
         <div id="status-1" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -181,14 +171,14 @@
     <div id="step-2" class="step-section">
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <h2>Chapter in an edited book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for chapter in an edited book</span><br>
             Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-2"></div>
         <div id="status-2" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -211,14 +201,14 @@
     <div id="step-3" class="step-section">
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
             Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-3"></div>
         <div id="status-3" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -239,14 +229,14 @@
     <div id="step-4" class="step-section">
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. <br> Controls: Click or tap the components to move them, or use the Tab/Enter keys.</span>
         </div>
         <h2>Online journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online journal article</span><br>
             Initial. Surname, <em>Journal Title</em>, year, DOI.
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-4"></div>
         <div id="status-4" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -266,14 +256,14 @@
     <div id="step-5" class="step-section">
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <h2>Online resource / website</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online resource / website</span><br>
             Name of resource, URL, (accessed date).
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-5"></div>
         <div id="status-5" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -285,49 +275,59 @@
         <div class="button-row">
             <button class="btn-check" onclick="validate(5, 3)">Check Answer</button>
             <button class="btn-reset" onclick="resetStep(5)">Reset Task</button>
-            <button class="btn-next" id="next-5" onclick="moveStep(6)">Finish & Review →</button>
+            <button class="btn-next" id="next-5" onclick="moveStep(6)">View Summary →</button>
         </div>
     </div>
 
     <div id="step-6" class="step-section">
-        <h2>Activity Complete!</h2>
+        <h2>Referencing Summary</h2>
         <div class="interaction-guide">
-            <h3>Summary of RSC Formats</h3>
-            <p>Review the correct formats and examples below for your future assignments.</p>
+            <h3>Well done!</h3>
+            <span class="instruction-text">Review the correct RSC formats and completed examples below. You can restart the activity at any time using the button at the bottom.</span>
         </div>
 
-        <div class="summary-item">
-            <span class="format-label">Book</span><br>
-            Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
-            <div class="example-box">S. T. Beckett, <em>Science of Chocolate</em>, Royal Society of Chemistry, Cambridge, 2000.</div>
+        <div class="summary-block">
+            <div class="instruction-card">
+                <span class="format-label">Book</span><br>
+                Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
+                <div class="summary-example">S. T. Beckett, <em>Science of Chocolate</em>, Royal Society of Chemistry, Cambridge, 2000.</div>
+            </div>
         </div>
 
-        <div class="summary-item">
-            <span class="format-label">Chapter in an edited book</span><br>
-            Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
-            <div class="example-box">J. Barker, in <em>Catalyst Deactivation</em>, ed. B. Delmon and C. Froment, Elsevier, Amsterdam, 2nd edn, 1987, vol. 1, ch. 4, pp. 253–255.</div>
+        <div class="summary-block">
+            <div class="instruction-card">
+                <span class="format-label">Chapter in an edited book</span><br>
+                Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
+                <div class="summary-example">J. Barker, in <em>Catalyst Deactivation</em>, ed. B. Delmon and C. Froment, Elsevier, Amsterdam, 2nd edn, 1987, vol. 1, ch. 4, pp. 253–255.</div>
+            </div>
         </div>
 
-        <div class="summary-item">
-            <span class="format-label">Journal article</span><br>
-            Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
-            <div class="example-box">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, <strong>48</strong>, 1851–1853.</div>
+        <div class="summary-block">
+            <div class="instruction-card">
+                <span class="format-label">Journal article</span><br>
+                Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
+                <div class="summary-example">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, <strong>48</strong>, 1851–1853.</div>
+            </div>
         </div>
 
-        <div class="summary-item">
-            <span class="format-label">Online journal article</span><br>
-            Initial. Surname, <em>Journal Title</em>, year, DOI.
-            <div class="example-box">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, DOI: 10.1039/C2CC17634C.</div>
+        <div class="summary-block">
+            <div class="instruction-card">
+                <span class="format-label">Online journal article</span><br>
+                Initial. Surname, <em>Journal Title</em>, year, DOI.
+                <div class="summary-example">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, DOI: 10.1039/C2CC17634C.</div>
+            </div>
         </div>
 
-        <div class="summary-item">
-            <span class="format-label">Online resource / website</span><br>
-            Name of resource, URL, (accessed date).
-            <div class="example-box">The Merck Index Online, http://www.rsc.org/Merck-Index/monograph/mono1500000841, (accessed October 2023).</div>
+        <div class="summary-block">
+            <div class="instruction-card">
+                <span class="format-label">Online resource / website</span><br>
+                Name of resource, URL, (accessed date).
+                <div class="summary-example">The Merck Index Online, http://www.rsc.org/Merck-Index/monograph/mono1500000841, (accessed October 2023).</div>
+            </div>
         </div>
 
         <div class="button-row">
-            <button class="btn-check" style="width:100%" onclick="restartActivity()">Restart Activity</button>
+            <button class="btn-check" style="width: 100%;" onclick="restartActivity()">Restart Activity</button>
         </div>
     </div>
 </div>
@@ -351,6 +351,7 @@
         const stepId = stepSection.id.split('-')[1];
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
+        if (!targetZone || !sourceZone) return;
         if (item.parentNode === sourceZone) targetZone.appendChild(item);
         else sourceZone.appendChild(item);
         item.classList.remove('incorrect');
@@ -420,23 +421,22 @@
 
     function moveStep(nextId) {
         document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(`step-${nextId}`).classList.add('active');
+        const nextStep = document.getElementById(`step-${nextId}`);
+        nextStep.classList.add('active');
         
-        // Progress bar logic (Step 6 is 100%)
-        let progress = (nextId / 6) * 100;
+        // Progress bar logic: now goes to 100% at summary (step 6)
+        const progress = (nextId / 6) * 100;
         document.getElementById('progress-fill').style.width = progress + '%';
         window.scrollTo(0,0);
     }
 
     function restartActivity() {
-        // Reset all individual steps
-        for(let i=1; i<=5; i++) {
+        // Reset steps 1 through 5
+        for (let i = 1; i <= 5; i++) {
             resetStep(i);
         }
-        // Go back to step 1
+        // Return to start
         moveStep(1);
-        // Reset progress bar to initial
-        document.getElementById('progress-fill').style.width = '20%';
     }
 </script>
 </body>
