@@ -67,6 +67,7 @@
         }
         .menu-item:hover { border-color: var(--highlight); transform: translateX(5px); }
         .menu-item .badge { font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; background: var(--border); color: var(--text-main); }
+        .menu-item.done { border-color: var(--success); }
         .menu-item.done .badge { background: var(--success); color: white; }
 
         .progress-container {
@@ -134,7 +135,7 @@
         .btn-reset { background: var(--border); color: var(--text-main); flex-grow: 1; }
         .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
         .btn-next.visible { display: inline-block; }
-        .btn-menu { background: var(--instruction-bg); color: var(--rsc-navy); width: 100%; margin-top: 10px; border: 1px solid var(--border); }
+        .btn-menu { background: var(--instruction-bg); color: var(--rsc-navy); width: 100%; margin-bottom: 20px; border: 1px solid var(--border); }
 
         @media (max-width: 600px) {
             .container { padding: 20px; }
@@ -168,6 +169,10 @@
 
     <div id="step-1" class="step-section">
         <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+        </div>
         <h2>Book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book</span><br>
@@ -193,6 +198,10 @@
 
     <div id="step-2" class="step-section">
         <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+        </div>
         <h2>Chapter in an edited book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for chapter in an edited book</span><br>
@@ -220,6 +229,10 @@
 
     <div id="step-3" class="step-section">
         <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+        </div>
         <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
@@ -245,6 +258,10 @@
 
     <div id="step-4" class="step-section">
         <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. <br> Controls: Click or tap the components to move them, or use the Tab/Enter keys.</span>
+        </div>
         <h2>Online journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online journal article</span><br>
@@ -269,6 +286,10 @@
 
     <div id="step-5" class="step-section">
         <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <div class="interaction-guide">
+            <h3>Instructions</h3>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+        </div>
         <h2>Online resource / website</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online resource / website</span><br>
@@ -387,7 +408,6 @@
         statusMsg.className = "status-msg";
         if (nextBtn) nextBtn.classList.remove('visible');
         
-        // Remove completion if they reset
         completedSteps.delete(stepId);
         updateDashboard(stepId, false);
     }
@@ -422,7 +442,6 @@
             statusMsg.className = "status-msg success";
             if (nextBtn) nextBtn.classList.add('visible');
             
-            // Mark as completed
             completedSteps.add(stepId);
             updateDashboard(stepId, true);
         } else {
