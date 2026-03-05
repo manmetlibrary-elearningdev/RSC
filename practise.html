@@ -6,7 +6,6 @@
     <title>RSC Referencing Activity</title>
     <style>
         :root {
-            /* Light Mode Variables */
             --rsc-navy: #002f5d;
             --highlight: #00AFFF;
             --bg-light: #f0f4f8;
@@ -20,7 +19,6 @@
             --item-text: #002f5d;
         }
 
-        /* Dark Mode Support */
         @media (prefers-color-scheme: dark) {
             :root {
                 --rsc-navy: #79b6f2; 
@@ -58,7 +56,6 @@
 
         h1 { color: var(--rsc-navy); text-align: center; border-bottom: 2px solid var(--highlight); padding-bottom: 15px; }
 
-        /* Dashboard Styles */
         .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
         .menu-item { 
             padding: 20px; background: var(--zone-bg); border: 2px solid var(--border); 
@@ -115,7 +112,8 @@
             transition: all 0.2s; user-select: none; font-size: 0.95rem;
             outline: none;
         }
-        .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(0, 175, 255, 0.3); }
+        /* KEY FIX: Visible focus ring for tabbing */
+        .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(0, 175, 255, 0.4); background: var(--instruction-bg); }
         .item:hover { background: var(--instruction-bg); transform: translateY(-1px); }
 
         .feedback-icon { font-weight: bold; font-size: 1.1rem; display: none; }
@@ -183,11 +181,11 @@
         <div id="status-1" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-1">
-            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>S. T. Beckett,</div>
-            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Science of Chocolate</em>,</div>
-            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Royal Society of Chemistry,</div>
-            <div class="item" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Cambridge,</div>
-            <div class="item" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2000.</div>
+            <div class="item" data-order="1" tabindex="0"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>S. T. Beckett,</div>
+            <div class="item" data-order="2" tabindex="0"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Science of Chocolate</em>,</div>
+            <div class="item" data-order="3" tabindex="0"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Royal Society of Chemistry,</div>
+            <div class="item" data-order="4" tabindex="0"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Cambridge,</div>
+            <div class="item" data-order="5" tabindex="0"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2000.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(1, 5)">Check Answer</button>
@@ -212,13 +210,13 @@
         <div id="status-2" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-2">
-            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>J. Barker,</div>
-            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>in <em>Catalyst Deactivation</em>,</div>
-            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>ed. B. Delmon and C. Froment,</div>
-            <div class="item" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Elsevier,</div>
-            <div class="item" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>Amsterdam, 2nd edn,</div>
-            <div class="item" data-order="6"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>1987,</div>
-            <div class="item" data-order="7"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>vol. 1, ch. 4, pp. 253–255.</div>
+            <div class="item" data-order="1" tabindex="0">J. Barker,</div>
+            <div class="item" data-order="2" tabindex="0">in <em>Catalyst Deactivation</em>,</div>
+            <div class="item" data-order="3" tabindex="0">ed. B. Delmon and C. Froment,</div>
+            <div class="item" data-order="4" tabindex="0">Elsevier,</div>
+            <div class="item" data-order="5" tabindex="0">Amsterdam, 2nd edn,</div>
+            <div class="item" data-order="6" tabindex="0">1987,</div>
+            <div class="item" data-order="7" tabindex="0">vol. 1, ch. 4, pp. 253–255.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(2, 7)">Check Answer</button>
@@ -231,7 +229,7 @@
         <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order.</span>
         </div>
         <h2>Journal article</h2>
         <div class="instruction-card">
@@ -243,11 +241,11 @@
         <div id="status-3" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-3">
-            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
-            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Chem. Commun.</em>,</div>
-            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2012,</div>
-            <div class="item" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><strong>48</strong>,</div>
-            <div class="item" data-order="5"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>1851–1853.</div>
+            <div class="item" data-order="1" tabindex="0">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
+            <div class="item" data-order="2" tabindex="0"><em>Chem. Commun.</em>,</div>
+            <div class="item" data-order="3" tabindex="0">2012,</div>
+            <div class="item" data-order="4" tabindex="0"><strong>48</strong>,</div>
+            <div class="item" data-order="5" tabindex="0">1851–1853.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(3, 5)">Check Answer</button>
@@ -260,7 +258,7 @@
         <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. <br> Controls: Click or tap the components to move them, or use the Tab/Enter keys.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order.</span>
         </div>
         <h2>Online journal article</h2>
         <div class="instruction-card">
@@ -272,10 +270,10 @@
         <div id="status-4" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-4">
-            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
-            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span><em>Chem. Commun.</em>,</div>
-            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>2012,</div>
-            <div class="item" data-order="4"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>DOI: 10.1039/C2CC17634C.</div>
+            <div class="item" data-order="1" tabindex="0">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
+            <div class="item" data-order="2" tabindex="0"><em>Chem. Commun.</em>,</div>
+            <div class="item" data-order="3" tabindex="0">2012,</div>
+            <div class="item" data-order="4" tabindex="0">DOI: 10.1039/C2CC17634C.</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(4, 4)">Check Answer</button>
@@ -288,7 +286,7 @@
         <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order.</span>
         </div>
         <h2>Online resource / website</h2>
         <div class="instruction-card">
@@ -300,9 +298,9 @@
         <div id="status-5" class="status-msg"></div>
         <div class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-5">
-            <div class="item" data-order="1"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>The Merck Index Online,</div>
-            <div class="item" data-order="2"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>http://www.rsc.org/Merck-Index/monograph/mono1500000841,</div>
-            <div class="item" data-order="3"><span class="feedback-icon tick">✓</span><span class="feedback-icon cross">✗</span>(accessed October 2023).</div>
+            <div class="item" data-order="1" tabindex="0">The Merck Index Online,</div>
+            <div class="item" data-order="2" tabindex="0">http://www.rsc.org/Merck-Index/monograph/mono1500000841,</div>
+            <div class="item" data-order="3" tabindex="0">(accessed October 2023).</div>
         </div>
         <div class="button-row">
             <button class="btn-check" onclick="validate(5, 3)">Check Answer</button>
@@ -368,6 +366,7 @@
 
     window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
+    // Handles both Mouse clicks and Keyboard selection
     document.addEventListener('click', function(e) {
         const item = e.target.closest('.item');
         if (!item || item.classList.contains('correct')) return;
@@ -382,9 +381,13 @@
         item.classList.remove('incorrect');
     });
 
+    // Fix for Tab + Enter/Space selection
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
-            if (e.target.classList.contains('item')) { e.preventDefault(); e.target.click(); }
+            if (e.target.classList.contains('item')) { 
+                e.preventDefault(); 
+                e.target.click(); 
+            }
         }
     });
 
@@ -396,7 +399,7 @@
         const items = Array.from(targetZone.children);
         items.forEach(item => {
             item.classList.remove('correct', 'incorrect');
-            item.tabIndex = 0;
+            item.tabIndex = 0; // Restore tabbing
             sourceZone.appendChild(item);
         });
         Array.from(sourceZone.children).forEach(item => {
@@ -423,29 +426,29 @@
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
-                item.tabIndex = -1;
+                item.tabIndex = -1; // Remove from tabbing once locked
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
                 item.classList.remove('correct');
+                item.tabIndex = 0;
             }
         });
 
         if (items.length === 0) {
-            statusMsg.innerHTML = "Place the components in the box above first!";
+            statusMsg.innerHTML = "Place the components in the box first!";
             statusMsg.className = "status-msg error";
         } else if (items.length < totalItems) {
             statusMsg.innerHTML = `You've placed ${items.length} of ${totalItems} components.`;
             statusMsg.className = "status-msg error";
         } else if (correctCount === totalItems) {
-            statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted and placed.";
+            statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
             statusMsg.className = "status-msg success";
             if (nextBtn) nextBtn.classList.add('visible');
-            
             completedSteps.add(stepId);
             updateDashboard(stepId, true);
         } else {
-            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} parts correct. ✗ Try reordering the items.`;
+            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} parts correct.`;
             statusMsg.className = "status-msg error";
         }
     }
@@ -460,7 +463,6 @@
             menuItem.classList.remove('done');
             badge.innerHTML = "Not Started";
         }
-        
         const progress = (completedSteps.size / 5) * 100;
         document.getElementById('progress-fill').style.width = progress + '%';
     }
