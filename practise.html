@@ -61,7 +61,9 @@
             padding: 20px; background: var(--zone-bg); border: 2px solid var(--border); 
             border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; 
             align-items: center; transition: all 0.2s; font-weight: 600; color: var(--rsc-navy);
+            outline: none;
         }
+        .menu-item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(0, 175, 255, 0.4); }
         .menu-item:hover { border-color: var(--highlight); transform: translateX(5px); }
         .menu-item .badge { font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; background: var(--border); color: var(--text-main); }
         .menu-item.done { border-color: var(--success); }
@@ -93,7 +95,7 @@
         .format-label { font-size: 0.85rem; text-transform: uppercase; color: var(--rsc-navy); font-weight: bold; }
         .summary-example { font-family: serif; font-size: 1.05rem; margin-top: 8px; padding-left: 10px; border-left: 2px solid var(--border); color: var(--text-main); }
 
-        .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--rsc-navy); }
+        .zone-title { font-weight: 600; margin: 15px 0 10px; color: var(--rsc-navy); outline: none; }
         
         .drop-zone {
             width: 100%; min-height: 100px;
@@ -112,7 +114,6 @@
             transition: all 0.2s; user-select: none; font-size: 0.95rem;
             outline: none;
         }
-        /* KEY FIX: Visible focus ring for tabbing */
         .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(0, 175, 255, 0.4); background: var(--instruction-bg); }
         .item:hover { background: var(--instruction-bg); transform: translateY(-1px); }
 
@@ -129,6 +130,7 @@
 
         .button-row { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
         button { padding: 14px 28px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; }
+        button:focus { outline: 3px solid var(--highlight); outline-offset: 2px; }
         .btn-check { background: var(--rsc-navy); color: #fff; flex-grow: 2; }
         .btn-reset { background: var(--border); color: var(--text-main); flex-grow: 1; }
         .btn-next { background: var(--highlight); color: white; display: none; width: 100%; margin-top: 10px; }
@@ -149,16 +151,17 @@
     <div class="progress-container"><div id="progress-fill"></div></div>
 
     <div id="step-0" class="step-section active">
+        <h2 id="heading-0" tabindex="-1" style="outline:none;">Dashboard</h2>
         <div class="interaction-guide">
             <h3>Choose type of reference</h3>
             <span class="instruction-text">Select a category below to practice its formatting. Complete all tasks to view the full summary.</span>
         </div>
         <div class="menu-grid">
-            <div class="menu-item" id="menu-1" onclick="moveStep(1)">1. Book <span class="badge" id="badge-1">Not Started</span></div>
-            <div class="menu-item" id="menu-2" onclick="moveStep(2)">2. Chapter in an edited book <span class="badge" id="badge-2">Not Started</span></div>
-            <div class="menu-item" id="menu-3" onclick="moveStep(3)">3. Journal article <span class="badge" id="badge-3">Not Started</span></div>
-            <div class="menu-item" id="menu-4" onclick="moveStep(4)">4. Online journal article <span class="badge" id="badge-4">Not Started</span></div>
-            <div class="menu-item" id="menu-5" onclick="moveStep(5)">5. Online resource / website <span class="badge" id="badge-5">Not Started</span></div>
+            <div class="menu-item" id="menu-1" onclick="moveStep(1)" tabindex="0" role="button">1. Book <span class="badge" id="badge-1">Not Started</span></div>
+            <div class="menu-item" id="menu-2" onclick="moveStep(2)" tabindex="0" role="button">2. Chapter in an edited book <span class="badge" id="badge-2">Not Started</span></div>
+            <div class="menu-item" id="menu-3" onclick="moveStep(3)" tabindex="0" role="button">3. Journal article <span class="badge" id="badge-3">Not Started</span></div>
+            <div class="menu-item" id="menu-4" onclick="moveStep(4)" tabindex="0" role="button">4. Online journal article <span class="badge" id="badge-4">Not Started</span></div>
+            <div class="menu-item" id="menu-5" onclick="moveStep(5)" tabindex="0" role="button">5. Online resource / website <span class="badge" id="badge-5">Not Started</span></div>
         </div>
         <div class="button-row">
             <button class="btn-check" style="width: 100%;" onclick="moveStep(6)">Jump to Summary Review →</button>
@@ -166,12 +169,12 @@
     </div>
 
     <div id="step-1" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-1" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-1" tabindex="-1" style="outline:none;">Book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for book</span><br>
             Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
@@ -195,12 +198,12 @@
     </div>
 
     <div id="step-2" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-2" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-2" tabindex="-1" style="outline:none;">Chapter in an edited book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Chapter in an edited book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for chapter in an edited book</span><br>
             Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
@@ -226,12 +229,12 @@
     </div>
 
     <div id="step-3" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-3" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-3" tabindex="-1" style="outline:none;">Journal article</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
             Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
@@ -255,12 +258,12 @@
     </div>
 
     <div id="step-4" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-4" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-4" tabindex="-1" style="outline:none;">Online journal article</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Online journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online journal article</span><br>
             Initial. Surname, <em>Journal Title</em>, year, DOI.
@@ -283,12 +286,12 @@
     </div>
 
     <div id="step-5" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" id="back-5" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-5" tabindex="-1" style="outline:none;">Online resource / website</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order.</span>
+            <span class="instruction-text">Put the components into the correct order. Use <strong>Tab</strong> to navigate and <strong>Enter/Space</strong> to move items.</span>
         </div>
-        <h2>Online resource / website</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online resource / website</span><br>
             Name of resource, URL, (accessed date).
@@ -310,8 +313,8 @@
     </div>
 
     <div id="step-6" class="step-section">
-        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
-        <h2>Referencing Summary</h2>
+        <button class="btn-menu" id="back-6" onclick="moveStep(0)">← Back to Menu</button>
+        <h2 id="heading-6" tabindex="-1" style="outline:none;">Referencing Summary</h2>
         <div class="interaction-guide">
             <h3>Review of Formats</h3>
             <span class="instruction-text">Here are the correct RSC formats and examples for all reference types in this activity.</span>
@@ -366,54 +369,37 @@
 
     window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
-    // Handles both Mouse clicks and Keyboard selection
-    document.addEventListener('click', function(e) {
-        const item = e.target.closest('.item');
+    function handleItemMove(item) {
         if (!item || item.classList.contains('correct')) return;
         const stepSection = item.closest('.step-section');
-        if (!stepSection) return;
         const stepId = stepSection.id.split('-')[1];
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
-        if (!targetZone || !sourceZone) return;
+        
         if (item.parentNode === sourceZone) targetZone.appendChild(item);
         else sourceZone.appendChild(item);
+        
         item.classList.remove('incorrect');
+        setTimeout(() => item.focus(), 10); // FOCUS RETENTION
+    }
+
+    document.addEventListener('click', e => {
+        const item = e.target.closest('.item');
+        if (item) handleItemMove(item);
     });
 
-    // Fix for Tab + Enter/Space selection
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
-            if (e.target.classList.contains('item')) { 
-                e.preventDefault(); 
-                e.target.click(); 
+            if (e.target.classList.contains('item')) {
+                e.preventDefault();
+                handleItemMove(e.target);
+            }
+            if (e.target.classList.contains('menu-item')) {
+                e.preventDefault();
+                e.target.click();
             }
         }
     });
-
-    function resetStep(stepId) {
-        const targetZone = document.getElementById(`target-${stepId}`);
-        const sourceZone = document.getElementById(`source-${stepId}`);
-        const statusMsg = document.getElementById(`status-${stepId}`);
-        const nextBtn = document.getElementById(`next-${stepId}`);
-        const items = Array.from(targetZone.children);
-        items.forEach(item => {
-            item.classList.remove('correct', 'incorrect');
-            item.tabIndex = 0; // Restore tabbing
-            sourceZone.appendChild(item);
-        });
-        Array.from(sourceZone.children).forEach(item => {
-            item.classList.remove('correct', 'incorrect');
-            item.tabIndex = 0;
-        });
-        shuffleZone(sourceZone);
-        statusMsg.innerHTML = "";
-        statusMsg.className = "status-msg";
-        if (nextBtn) nextBtn.classList.remove('visible');
-        
-        completedSteps.delete(stepId);
-        updateDashboard(stepId, false);
-    }
 
     function validate(stepId, totalItems) {
         const targetZone = document.getElementById(`target-${stepId}`);
@@ -426,7 +412,7 @@
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
-                item.tabIndex = -1; // Remove from tabbing once locked
+                item.tabIndex = -1;
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
@@ -435,20 +421,20 @@
             }
         });
 
-        if (items.length === 0) {
-            statusMsg.innerHTML = "Place the components in the box first!";
-            statusMsg.className = "status-msg error";
-        } else if (items.length < totalItems) {
-            statusMsg.innerHTML = `You've placed ${items.length} of ${totalItems} components.`;
+        if (items.length < totalItems) {
+            statusMsg.innerHTML = "Place all components first!";
             statusMsg.className = "status-msg error";
         } else if (correctCount === totalItems) {
-            statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
+            statusMsg.innerHTML = "Excellent! ✓ All parts are correct.";
             statusMsg.className = "status-msg success";
-            if (nextBtn) nextBtn.classList.add('visible');
+            if (nextBtn) {
+                nextBtn.classList.add('visible');
+                nextBtn.focus();
+            }
             completedSteps.add(stepId);
             updateDashboard(stepId, true);
         } else {
-            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} parts correct.`;
+            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} correct.`;
             statusMsg.className = "status-msg error";
         }
     }
@@ -469,14 +455,30 @@
 
     function moveStep(nextId) {
         document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(`step-${nextId}`).classList.add('active');
+        const nextSection = document.getElementById(`step-${nextId}`);
+        nextSection.classList.add('active');
+        const heading = document.getElementById(`heading-${nextId}`);
+        if (heading) heading.focus(); // SECTION FOCUS
         window.scrollTo(0,0);
     }
 
+    function resetStep(stepId) {
+        const targetZone = document.getElementById(`target-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        const items = Array.from(targetZone.children);
+        items.forEach(item => {
+            item.classList.remove('correct', 'incorrect');
+            item.tabIndex = 0;
+            sourceZone.appendChild(item);
+        });
+        shuffleZone(sourceZone);
+        completedSteps.delete(stepId);
+        updateDashboard(stepId, false);
+        moveStep(stepId);
+    }
+
     function restartActivity() {
-        for (let i = 1; i <= 5; i++) {
-            resetStep(i);
-        }
+        for (let i = 1; i <= 5; i++) resetStep(i);
         completedSteps.clear();
         document.getElementById('progress-fill').style.width = '0%';
         moveStep(0);
