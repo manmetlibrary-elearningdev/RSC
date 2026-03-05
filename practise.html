@@ -92,6 +92,12 @@
             padding: 15px 20px; margin-bottom: 30px; border-radius: 0 8px 8px 0;
         }
 
+        .scenario-card {
+            background: var(--instruction-bg); border-left: 4px solid var(--rsc-navy);
+            padding: 15px 20px; margin-bottom: 30px; border-radius: 0 8px 8px 0;
+            font-size: 1rem;
+        }
+
         .format-label { font-size: 0.85rem; text-transform: uppercase; color: var(--rsc-navy); font-weight: bold; }
         .summary-example { font-family: serif; font-size: 1.05rem; margin-top: 8px; padding-left: 10px; border-left: 2px solid var(--border); color: var(--text-main); }
 
@@ -208,6 +214,11 @@
             <span class="format-label">Format for chapter in an edited book</span><br>
             Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
         </div>
+
+        <div class="scenario-card">
+            <strong>Task:</strong> How would you reference the chapter <strong>'Catalyst Deactivation'</strong> by <strong>J. Barker</strong> in the book <strong>'Catalyst Deactivation'</strong> edited by <strong>B. Delmon and C. Froment</strong>?
+        </div>
+
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-2"></div>
         <div id="status-2" class="status-msg"></div>
@@ -380,7 +391,9 @@
         else sourceZone.appendChild(item);
         
         item.classList.remove('incorrect');
-        setTimeout(() => item.focus(), 10); // FOCUS RETENTION
+        
+        // FOCUS RETENTION: Keep focus on the item after it moves
+        setTimeout(() => item.focus(), 10);
     }
 
     document.addEventListener('click', e => {
@@ -412,7 +425,7 @@
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
                 item.classList.remove('incorrect');
-                item.tabIndex = -1;
+                item.tabIndex = -1; // Locked
                 correctCount++;
             } else {
                 item.classList.add('incorrect');
@@ -421,20 +434,23 @@
             }
         });
 
-        if (items.length < totalItems) {
-            statusMsg.innerHTML = "Place all components first!";
+        if (items.length === 0) {
+            statusMsg.innerHTML = "Place the components in the box first!";
+            statusMsg.className = "status-msg error";
+        } else if (items.length < totalItems) {
+            statusMsg.innerHTML = `You've placed ${items.length} of ${totalItems} components.`;
             statusMsg.className = "status-msg error";
         } else if (correctCount === totalItems) {
-            statusMsg.innerHTML = "Excellent! ✓ All parts are correct.";
+            statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
             statusMsg.className = "status-msg success";
             if (nextBtn) {
                 nextBtn.classList.add('visible');
-                nextBtn.focus();
+                nextBtn.focus(); // Help keyboard users move forward
             }
             completedSteps.add(stepId);
             updateDashboard(stepId, true);
         } else {
-            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} correct.`;
+            statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} parts correct.`;
             statusMsg.className = "status-msg error";
         }
     }
@@ -457,14 +473,19 @@
         document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
         const nextSection = document.getElementById(`step-${nextId}`);
         nextSection.classList.add('active');
+        
+        // SECTION FOCUS: Focus the heading of the new view
         const heading = document.getElementById(`heading-${nextId}`);
-        if (heading) heading.focus(); // SECTION FOCUS
+        if (heading) heading.focus();
+        
         window.scrollTo(0,0);
     }
 
     function resetStep(stepId) {
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
+        const statusMsg = document.getElementById(`status-${stepId}`);
+        const nextBtn = document.getElementById(`next-${stepId}`);
         const items = Array.from(targetZone.children);
         items.forEach(item => {
             item.classList.remove('correct', 'incorrect');
@@ -472,9 +493,11 @@
             sourceZone.appendChild(item);
         });
         shuffleZone(sourceZone);
+        statusMsg.innerHTML = "";
+        statusMsg.className = "status-msg";
+        if (nextBtn) nextBtn.classList.remove('visible');
         completedSteps.delete(stepId);
         updateDashboard(stepId, false);
-        moveStep(stepId);
     }
 
     function restartActivity() {
