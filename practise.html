@@ -123,6 +123,20 @@
         .item:focus { border-color: var(--highlight); box-shadow: 0 0 0 3px rgba(0, 175, 255, 0.4); background: var(--instruction-bg); }
         .item:hover { background: var(--instruction-bg); transform: translateY(-1px); }
 
+        .final-reference-card {
+            display: none; background: var(--card-bg); border: 2px solid var(--success);
+            padding: 25px; border-radius: 12px; margin-top: 20px;
+        }
+        .final-reference-card.visible { display: block; animation: slideUp 0.4s ease; }
+        
+        .rsc-formatted {
+            font-family: 'Inter', sans-serif; 
+            font-size: 1.1rem; line-height: 1.8; 
+            word-wrap: break-word; color: var(--text-main);
+            margin-top: 10px;
+            /* No indentation for RSC as requested */
+        }
+
         .feedback-icon { font-weight: bold; font-size: 1.1rem; display: none; }
         .item.correct .feedback-icon.tick { display: inline; color: #fff; }
         .item.incorrect .feedback-icon.cross { display: inline; color: #fff; }
@@ -176,7 +190,7 @@
     </div>
 
     <div id="step-1" class="step-section">
-        <button class="btn-menu" id="back-1" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-1" tabindex="-1" style="outline:none;">Book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -189,13 +203,17 @@
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-1"></div>
         <div id="status-1" class="status-msg" tabindex="-1"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-1" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-1">
             <div class="item" data-order="1" tabindex="0">S. T. Beckett,</div>
             <div class="item" data-order="2" tabindex="0"><em>Science of Chocolate</em>,</div>
             <div class="item" data-order="3" tabindex="0">Royal Society of Chemistry,</div>
             <div class="item" data-order="4" tabindex="0">Cambridge,</div>
             <div class="item" data-order="5" tabindex="0">2000.</div>
+        </div>
+        <div id="final-card-1" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct RSC Format:</div>
+            <div class="rsc-formatted" id="rsc-text-1"></div>
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-1" onclick="validate(1, 5)">Check Answer</button>
@@ -206,7 +224,7 @@
     </div>
 
     <div id="step-2" class="step-section">
-        <button class="btn-menu" id="back-2" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-2" tabindex="-1" style="outline:none;">Chapter in an edited book</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -216,15 +234,13 @@
             <span class="format-label">Format for chapter in an edited book</span><br>
             Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
         </div>
-
         <div class="scenario-card">
             <strong>Task:</strong> How would you reference the chapter <strong>'Catalyst Deactivation'</strong> by <strong>J. Barker</strong> in the book <strong>'Catalyst Deactivation'</strong> edited by <strong>B. Delmon and C. Froment</strong>?
         </div>
-
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-2"></div>
         <div id="status-2" class="status-msg" tabindex="-1"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-2" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-2">
             <div class="item" data-order="1" tabindex="0">J. Barker,</div>
             <div class="item" data-order="2" tabindex="0">in <em>Catalyst Deactivation</em>,</div>
@@ -233,6 +249,10 @@
             <div class="item" data-order="5" tabindex="0">Amsterdam, 2nd edn,</div>
             <div class="item" data-order="6" tabindex="0">1987,</div>
             <div class="item" data-order="7" tabindex="0">vol. 1, ch. 4, pp. 253–255.</div>
+        </div>
+        <div id="final-card-2" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct RSC Format:</div>
+            <div class="rsc-formatted" id="rsc-text-2"></div>
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-2" onclick="validate(2, 7)">Check Answer</button>
@@ -243,7 +263,7 @@
     </div>
 
     <div id="step-3" class="step-section">
-        <button class="btn-menu" id="back-3" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-3" tabindex="-1" style="outline:none;">Journal article</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -256,13 +276,17 @@
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-3"></div>
         <div id="status-3" class="status-msg" tabindex="-1"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-3" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-3">
             <div class="item" data-order="1" tabindex="0">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
             <div class="item" data-order="2" tabindex="0"><em>Chem. Commun.</em>,</div>
             <div class="item" data-order="3" tabindex="0">2012,</div>
             <div class="item" data-order="4" tabindex="0"><strong>48</strong>,</div>
             <div class="item" data-order="5" tabindex="0">1851–1853.</div>
+        </div>
+        <div id="final-card-3" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct RSC Format:</div>
+            <div class="rsc-formatted" id="rsc-text-3"></div>
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-3" onclick="validate(3, 5)">Check Answer</button>
@@ -273,7 +297,7 @@
     </div>
 
     <div id="step-4" class="step-section">
-        <button class="btn-menu" id="back-4" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-4" tabindex="-1" style="outline:none;">Online journal article</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -286,12 +310,16 @@
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-4"></div>
         <div id="status-4" class="status-msg" tabindex="-1"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-4" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-4">
             <div class="item" data-order="1" tabindex="0">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller,</div>
             <div class="item" data-order="2" tabindex="0"><em>Chem. Commun.</em>,</div>
             <div class="item" data-order="3" tabindex="0">2012,</div>
             <div class="item" data-order="4" tabindex="0">DOI: 10.1039/C2CC17634C.</div>
+        </div>
+        <div id="final-card-4" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct RSC Format:</div>
+            <div class="rsc-formatted" id="rsc-text-4"></div>
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-4" onclick="validate(4, 4)">Check Answer</button>
@@ -302,7 +330,7 @@
     </div>
 
     <div id="step-5" class="step-section">
-        <button class="btn-menu" id="back-5" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-5" tabindex="-1" style="outline:none;">Online resource / website</h2>
         <div class="interaction-guide">
             <h3>Instructions</h3>
@@ -315,11 +343,15 @@
         <div class="zone-title">Reference:</div>
         <div class="drop-zone target" id="target-5"></div>
         <div id="status-5" class="status-msg" tabindex="-1"></div>
-        <div class="zone-title">Components:</div>
+        <div id="comp-title-5" class="zone-title">Components:</div>
         <div class="drop-zone source-zone" id="source-5">
             <div class="item" data-order="1" tabindex="0">The Merck Index Online,</div>
             <div class="item" data-order="2" tabindex="0">http://www.rsc.org/Merck-Index/monograph/mono1500000841,</div>
             <div class="item" data-order="3" tabindex="0">(accessed October 2023).</div>
+        </div>
+        <div id="final-card-5" class="final-reference-card">
+            <div class="format-label" style="color: var(--success);">Correct RSC Format:</div>
+            <div class="rsc-formatted" id="rsc-text-5"></div>
         </div>
         <div class="button-row">
             <button class="btn-check" id="check-5" onclick="validate(5, 3)">Check Answer</button>
@@ -330,37 +362,38 @@
     </div>
 
     <div id="step-6" class="step-section">
-        <button class="btn-menu" id="back-6" onclick="moveStep(0)">← Back to Menu</button>
+        <button class="btn-menu" onclick="moveStep(0)">← Back to Menu</button>
         <h2 id="heading-6" tabindex="-1" style="outline:none;">Referencing Summary</h2>
         <div class="interaction-guide">
             <h3>Review of Formats</h3>
             <span class="instruction-text">Here are the correct RSC formats and examples for all reference types in this activity.</span>
         </div>
+
         <div class="instruction-card">
             <span class="format-label">Book</span><br>
-            Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
-            <div class="summary-example">S. T. Beckett, <em>Science of Chocolate</em>, Royal Society of Chemistry, Cambridge, 2000.</div>
+            <div class="rsc-formatted">S. T. Beckett, <em>Science of Chocolate</em>, Royal Society of Chemistry, Cambridge, 2000.</div>
         </div>
+
         <div class="instruction-card">
             <span class="format-label">Chapter in an edited book</span><br>
-            Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
-            <div class="summary-example">J. Barker, in <em>Catalyst Deactivation</em>, ed. B. Delmon and C. Froment, Elsevier, Amsterdam, 2nd edn, 1987, vol. 1, ch. 4, pp. 253–255.</div>
+            <div class="rsc-formatted">J. Barker, in <em>Catalyst Deactivation</em>, ed. B. Delmon and C. Froment, Elsevier, Amsterdam, 2nd edn, 1987, vol. 1, ch. 4, pp. 253–255.</div>
         </div>
+
         <div class="instruction-card">
             <span class="format-label">Journal article</span><br>
-            Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
-            <div class="summary-example">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, <strong>48</strong>, 1851–1853.</div>
+            <div class="rsc-formatted">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, <strong>48</strong>, 1851–1853.</div>
         </div>
+
         <div class="instruction-card">
             <span class="format-label">Online journal article</span><br>
-            Initial. Surname, <em>Journal Title</em>, year, DOI.
-            <div class="summary-example">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, DOI: 10.1039/C2CC17634C.</div>
+            <div class="rsc-formatted">T. J. Hebden, R. R. Schrock, M. K. Takase and P. Müller, <em>Chem. Commun.</em>, 2012, DOI: 10.1039/C2CC17634C.</div>
         </div>
+
         <div class="instruction-card">
             <span class="format-label">Online resource / website</span><br>
-            Name of resource, URL, (accessed date).
-            <div class="summary-example">The Merck Index Online, http://www.rsc.org/Merck-Index/monograph/mono1500000841, (accessed October 2023).</div>
+            <div class="rsc-formatted">The Merck Index Online, http://www.rsc.org/Merck-Index/monograph/mono1500000841, (accessed October 2023).</div>
         </div>
+
         <div class="button-row">
             <button class="btn-check" style="width: 100%;" onclick="restartActivity()">Restart All Tasks</button>
         </div>
@@ -387,8 +420,10 @@
         const stepId = stepSection.id.split('-')[1];
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
+        
         if (item.parentNode === sourceZone) targetZone.appendChild(item);
         else sourceZone.appendChild(item);
+        
         item.classList.remove('incorrect');
         setTimeout(() => item.focus(), 10);
     }
@@ -400,8 +435,14 @@
 
     document.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
-            if (e.target.classList.contains('item')) { e.preventDefault(); handleItemMove(e.target); }
-            if (e.target.classList.contains('menu-item')) { e.preventDefault(); e.target.click(); }
+            if (e.target.classList.contains('item')) {
+                e.preventDefault();
+                handleItemMove(e.target);
+            }
+            if (e.target.classList.contains('menu-item')) {
+                e.preventDefault();
+                e.target.click();
+            }
         }
     });
 
@@ -410,6 +451,7 @@
         const statusMsg = document.getElementById(`status-${stepId}`);
         const items = Array.from(targetZone.children);
         let correctCount = 0;
+
         items.forEach((item, index) => {
             if (parseInt(item.dataset.order) === index + 1) {
                 item.classList.add('correct');
@@ -424,7 +466,7 @@
         });
 
         if (items.length < totalItems) {
-            statusMsg.innerHTML = "Place all components first!";
+            statusMsg.innerHTML = "Place all components in the box first!";
             statusMsg.className = "status-msg error";
             statusMsg.focus();
             return;
@@ -436,6 +478,7 @@
             statusMsg.innerHTML = `Order incorrect: ${correctCount} of ${totalItems} correct.`;
             statusMsg.className = "status-msg error";
             statusMsg.focus();
+
             failCounts[stepId] = (failCounts[stepId] || 0) + 1;
             if (failCounts[stepId] >= 1) {
                 document.getElementById(`reveal-${stepId}`).style.display = 'inline-block';
@@ -446,7 +489,9 @@
     function revealSolution(stepId, totalItems) {
         const targetZone = document.getElementById(`target-${stepId}`);
         const items = Array.from(document.querySelectorAll(`#step-${stepId} .item`));
+
         items.sort((a, b) => parseInt(a.dataset.order) - parseInt(b.dataset.order));
+
         targetZone.innerHTML = '';
         items.forEach(item => {
             item.classList.remove('incorrect');
@@ -454,20 +499,38 @@
             item.tabIndex = -1;
             targetZone.appendChild(item);
         });
+
         handleSuccess(stepId, items);
         document.getElementById(`status-${stepId}`).innerHTML = "Solution revealed";
     }
 
     function handleSuccess(stepId, items) {
         const statusMsg = document.getElementById(`status-${stepId}`);
+        const finalCard = document.getElementById(`final-card-${stepId}`);
+        const rscText = document.getElementById(`rsc-text-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
         const checkBtn = document.getElementById(`check-${stepId}`);
         const revealBtn = document.getElementById(`reveal-${stepId}`);
+        const sourceZone = document.getElementById(`source-${stepId}`);
+        const compTitle = document.querySelector(`#step-${stepId} .zone-title:last-of-type`);
+
         statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
         statusMsg.className = "status-msg success";
-        if (nextBtn) { nextBtn.classList.add('visible'); nextBtn.focus(); }
+        
+        const fullRef = items.map(i => i.innerHTML.replace(/<span.*span>/g, '')).join(' ');
+        rscText.innerHTML = fullRef;
+        
+        sourceZone.style.display = 'none';
+        if(compTitle) compTitle.style.display = 'none';
+        
+        finalCard.classList.add('visible');
+        if(nextBtn) {
+            nextBtn.classList.add('visible');
+            nextBtn.focus();
+        }
         checkBtn.style.display = 'none';
-        if (revealBtn) revealBtn.style.display = 'none';
+        if(revealBtn) revealBtn.style.display = 'none';
+
         completedSteps.add(stepId);
         updateDashboard(stepId, true);
     }
@@ -475,8 +538,13 @@
     function updateDashboard(id, isDone) {
         const menuItem = document.getElementById(`menu-${id}`);
         const badge = document.getElementById(`badge-${id}`);
-        if(isDone) { menuItem.classList.add('done'); badge.innerHTML = "Completed ✅"; }
-        else { menuItem.classList.remove('done'); badge.innerHTML = "Not Started"; }
+        if(isDone) {
+            menuItem.classList.add('done');
+            badge.innerHTML = "Completed ✅";
+        } else {
+            menuItem.classList.remove('done');
+            badge.innerHTML = "Not Started";
+        }
         const progress = (completedSteps.size / 5) * 100;
         document.getElementById('progress-fill').style.width = progress + '%';
     }
@@ -494,20 +562,28 @@
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
         const statusMsg = document.getElementById(`status-${stepId}`);
+        const finalCard = document.getElementById(`final-card-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
         const checkBtn = document.getElementById(`check-${stepId}`);
         const revealBtn = document.getElementById(`reveal-${stepId}`);
+        const compTitle = document.querySelector(`#step-${stepId} .zone-title:last-of-type`);
+
         Array.from(targetZone.children).forEach(item => {
             item.classList.remove('correct', 'incorrect');
             item.tabIndex = 0;
             sourceZone.appendChild(item);
         });
+        
         shuffleZone(sourceZone);
+        sourceZone.style.display = 'flex';
+        if(compTitle) compTitle.style.display = 'block';
         statusMsg.innerHTML = "";
         statusMsg.className = "status-msg";
-        if (nextBtn) nextBtn.classList.remove('visible');
+        finalCard.classList.remove('visible');
+        if(nextBtn) nextBtn.classList.remove('visible');
         checkBtn.style.display = 'inline-block';
-        if (revealBtn) revealBtn.style.display = 'none';
+        if(revealBtn) revealBtn.style.display = 'none';
+
         failCounts[stepId] = 0;
         completedSteps.delete(stepId);
         updateDashboard(stepId, false);
@@ -523,4 +599,3 @@
 </script>
 </body>
 </html>
-
