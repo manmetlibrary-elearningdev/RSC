@@ -23,7 +23,7 @@
         /* Dark Mode Support */
         @media (prefers-color-scheme: dark) {
             :root {
-                --rsc-navy: #79b6f2; /* Lighter blue for readability */
+                --rsc-navy: #79b6f2; 
                 --highlight: #00AFFF;
                 --bg-light: #121212;
                 --card-bg: #1e1e1e;
@@ -146,7 +146,7 @@
             <span class="format-label">Format for book</span><br>
             Initial. Surname, <em>Book Title</em>, Publisher, Publisher Location, year.
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-1"></div>
         <div id="status-1" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -167,14 +167,14 @@
     <div id="step-2" class="step-section">
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <h2>Chapter in an edited book</h2>
         <div class="instruction-card">
             <span class="format-label">Format for chapter in an edited book</span><br>
             Initial. Surname, in <em>Book Title</em>, ed. Initial. Surname, Publisher, Publisher Location, edition, year, chapter, pages.
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-2"></div>
         <div id="status-2" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -197,14 +197,14 @@
     <div id="step-3" class="step-section">
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <h2>Journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for journal article</span><br>
             Initial. Surname, <em>Journal Title</em>, year, <strong>volume</strong>, page numbers.
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-3"></div>
         <div id="status-3" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -225,14 +225,14 @@
     <div id="step-4" class="step-section">
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. <br> Controls: Click or tap the components to move them, or use the Tab/Enter keys.</span>
         </div>
         <h2>Online journal article</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online journal article</span><br>
             Initial. Surname, <em>Journal Title</em>, year, DOI.
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-4"></div>
         <div id="status-4" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -252,14 +252,14 @@
     <div id="step-5" class="step-section">
         <div class="interaction-guide">
             <h3>Instructions</h3>
-            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components to move them, or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
+            <span class="instruction-text">Put the components of the reference into the correct order. On desktop: click the components or use the Tab/Enter keys. On mobile: tap a component to move it.</span>
         </div>
         <h2>Online resource / website</h2>
         <div class="instruction-card">
             <span class="format-label">Format for online resource / website</span><br>
             Name of resource, URL, (accessed date).
         </div>
-        <div class="zone-title">Reference:</div>
+        <div class="zone-title">Reference (put the components of the reference here):</div>
         <div class="drop-zone target" id="target-5"></div>
         <div id="status-5" class="status-msg"></div>
         <div class="zone-title">Components:</div>
@@ -284,33 +284,22 @@
         }
     }
 
-    window.onload = () => {
-        document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone));
-    };
+    window.onload = () => { document.querySelectorAll('.source-zone').forEach(zone => shuffleZone(zone)); };
 
     document.addEventListener('click', function(e) {
         const item = e.target.closest('.item');
         if (!item || item.classList.contains('correct')) return;
-
-        const currentStep = item.closest('.step-section');
-        const stepId = currentStep.id.split('-')[1];
+        const stepId = item.closest('.step-section').id.split('-')[1];
         const targetZone = document.getElementById(`target-${stepId}`);
         const sourceZone = document.getElementById(`source-${stepId}`);
-
-        if (item.parentNode === sourceZone) {
-            targetZone.appendChild(item);
-        } else {
-            sourceZone.appendChild(item);
-        }
+        if (item.parentNode === sourceZone) targetZone.appendChild(item);
+        else sourceZone.appendChild(item);
         item.classList.remove('incorrect');
     });
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
-            if (e.target.classList.contains('item')) {
-                e.preventDefault();
-                e.target.click();
-            }
+            if (e.target.classList.contains('item')) { e.preventDefault(); e.target.click(); }
         }
     });
 
@@ -319,19 +308,16 @@
         const sourceZone = document.getElementById(`source-${stepId}`);
         const statusMsg = document.getElementById(`status-${stepId}`);
         const nextBtn = document.getElementById(`next-${stepId}`);
-        
         const items = Array.from(targetZone.children);
         items.forEach(item => {
             item.classList.remove('correct', 'incorrect');
             item.tabIndex = 0;
             sourceZone.appendChild(item);
         });
-
         Array.from(sourceZone.children).forEach(item => {
             item.classList.remove('correct', 'incorrect');
             item.tabIndex = 0;
         });
-
         shuffleZone(sourceZone);
         statusMsg.innerHTML = "";
         statusMsg.className = "status-msg";
