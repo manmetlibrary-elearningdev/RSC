@@ -512,7 +512,7 @@
         const sourceZone = document.getElementById(`source-${stepId}`);
         const compTitle = document.querySelector(`#step-${stepId} .zone-title:last-of-type`);
 
-        statusMsg.innerHTML = "Excellent! ✓ All parts are correctly formatted.";
+        statusMsg.innerHTML = "Excellent! ✓";
         statusMsg.className = "status-msg success";
         
         const fullRef = items.map(i => i.innerHTML.replace(/<span.*span>/g, '')).join(' ');
@@ -597,6 +597,7 @@
 </script>
 </body>
 </html>
+
 
 
 
